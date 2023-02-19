@@ -11,10 +11,8 @@ namespace DetectorAnimal.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(AppDbContext context, ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger)
         {
-            //context.Database.EnsureDeleted();
-            //context.Database.EnsureCreated();
             _logger = logger;
         }
 
