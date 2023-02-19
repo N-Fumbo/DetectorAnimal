@@ -21,10 +21,7 @@ namespace DetectorAnimal.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        public IActionResult Register() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -65,6 +62,37 @@ namespace DetectorAnimal.Web.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login(string returnUrl = null) => View(new LoginViewModel() { ReturnUrl = returnUrl});
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    return string.IsNullOrEmpty(model.ReturnUrl) is false && Url.IsLocalUrl(model.ReturnUrl) ?
+                        Redirect(model.ReturnUrl) : 
+                        RedirectToAction("Index", "Home");
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -27,10 +27,12 @@ namespace DetectorAnimal.Web.Models
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = nameof(Password))]
         public string Password { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = nameof(PasswordConfirmed))]
         [Compare(nameof(Password))]
         public string PasswordConfirmed { get; set; }
     }

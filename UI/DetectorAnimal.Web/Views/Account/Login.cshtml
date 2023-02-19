@@ -1,0 +1,36 @@
+﻿@model LoginViewModel
+@{
+    ViewBag.Title = "Log In";
+}
+
+
+<h2>Login</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login">
+            <div class="mb-3">
+                <label asp-for="UserName" class="form-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="form-text"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="form-text"></span>
+            </div>
+            <div class="mb-3">
+                <input type="checkbox" class="form-check-input" />
+                <label asp-for="RememberMe" class="form-label"></label>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary">Log In</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}
