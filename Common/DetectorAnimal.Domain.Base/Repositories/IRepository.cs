@@ -8,11 +8,11 @@ namespace DetectorAnimal.Domain.Base.Repositories
 
         Task<bool> ExistById(int id, CancellationToken cancel = default);
 
-        Task<int> GetCount(CancellationToken cancel = default);
-
         Task<IEnumerable<T>> Get(int skip, int count, CancellationToken cancel = default);
 
         Task<T> GetById(int id, CancellationToken cancel = default);
+
+        Task<int> GetCount(CancellationToken cancel = default);
 
         Task<T> Add(T item, CancellationToken cancel = default);
 
