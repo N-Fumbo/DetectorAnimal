@@ -26,7 +26,7 @@ namespace DetectorAnimal.Dal.Repositories
             return await Items.AnyAsync(x => x.Id == item.Id, cancel).ConfigureAwait(false);
         }
 
-        public async Task<bool> ExistById(int id, CancellationToken cancel = default) => 
+        public async Task<bool> ExistId(int id, CancellationToken cancel = default) => 
             await Items.AnyAsync(item => item.Id == id, cancel).ConfigureAwait(false);
 
         public async Task<IEnumerable<T>> Get(int skip, int count, CancellationToken cancel = default)
@@ -77,7 +77,7 @@ namespace DetectorAnimal.Dal.Repositories
         {
             if (item is null) throw new ArgumentNullException(nameof(item));
 
-            if (!await ExistById(item.Id, cancel))
+            if (!await ExistId(item.Id, cancel))
                 return null;
 
             _context.Remove(item);
@@ -98,11 +98,7 @@ namespace DetectorAnimal.Dal.Repositories
 
             if (item is null) return null;
 
-            _context.Remove(item);
-
-            await _context.SaveChangesAsync(cancel).ConfigureAwait(false);
-
-            return item;
+            return await Delete(item, cancel).ConfigureAwait(false);
         }
     }
 }

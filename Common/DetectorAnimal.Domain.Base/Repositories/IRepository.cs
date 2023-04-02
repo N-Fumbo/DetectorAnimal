@@ -6,7 +6,7 @@ namespace DetectorAnimal.Domain.Base.Repositories
     {
         Task<bool> Exist(T item, CancellationToken cancel = default);
 
-        Task<bool> ExistById(int id, CancellationToken cancel = default);
+        Task<bool> ExistId(int id, CancellationToken cancel = default);
 
         Task<IEnumerable<T>> Get(int skip, int count, CancellationToken cancel = default);
 
