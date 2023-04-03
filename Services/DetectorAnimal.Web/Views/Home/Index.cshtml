@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +8,17 @@
     <title>Home</title>
 </head>
 <body>
-
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>@User.FindFirst(ClaimTypes.Name)?.Value</p>
+        <p>@User.FindFirst(ClaimTypes.Email)?.Value</p>
+        <form method="post" asp-controller="Account" asp-action="Logout">
+            <input type="submit" value="Log Out"/>
+        </form>
+    }
+    else
+    {
+        <partial name="../Shared/_RegisterTest.cshtml" />
+    }
 </body>
 </html>

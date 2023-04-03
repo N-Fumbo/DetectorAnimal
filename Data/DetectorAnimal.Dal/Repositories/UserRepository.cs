@@ -1,35 +1,37 @@
 ﻿using DetectorAnimal.Dal.Context;
+using DetectorAnimal.Dal.Repositories.Base;
+using DetectorAnimal.Domain.Base.Repositories;
 using DetectorAnimal.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DetectorAnimal.Dal.Repositories
 {
-    public class UserRepository : DbRepository<User>
+    public class UserRepository<T> : DbRepository<T>, IUserRepository<T> where T : User, new()
     {
         public UserRepository(AppDbContext context) : base(context) { }
 
-        public async Task<bool> ExistEmail(string email, CancellationToken cancel)
+        public async Task<bool> ExistEmail(string email, CancellationToken cancel = default)
         {
             if (email is null) throw new ArgumentNullException(nameof(email));
 
             return await Items.AnyAsync(x => x.Email == email, cancel).ConfigureAwait(false);
         }
 
-        public async Task<User> GetByEmail(string email, CancellationToken cancel)
+        public async Task<T> GetByEmail(string email, CancellationToken cancel = default)
         {
-            if(email is null) throw new ArgumentNullException(nameof(email));
+            if (email is null) throw new ArgumentNullException(nameof(email));
 
             return await Items.FirstOrDefaultAsync(x => x.Email == email, cancel).ConfigureAwait(false);
         }
 
-        public async Task<User> DeleteByEmail(string email, CancellationToken cancel)
+        public async Task<T> DeleteByEmail(string email, CancellationToken cancel = default)
         {
             if (email is null) throw new ArgumentNullException(nameof(email));
 
             var item = Set.Local.FirstOrDefault(x => x.Email == email);
 
             item ??= await Set
-                    .Select(x => new User { Id = x.Id, Email = x.Email })
+                    .Select(x => new T { Id = x.Id, Email = x.Email })
                     .FirstOrDefaultAsync(x => x.Email == email, cancel)
                     .ConfigureAwait(false);
 

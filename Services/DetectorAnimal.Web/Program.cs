@@ -1,6 +1,10 @@
+using DetectorAnimal.AccountManager;
 using DetectorAnimal.Dal.Context;
 using DetectorAnimal.Dal.Repositories;
+using DetectorAnimal.Domain.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,19 +19,21 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
-builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<UserRepository<User>>();
+builder.Services.AddScoped<AccountManagerService>();
 
-builder.Services.AddAuthentication("CookieAuthentication").AddCookie("CookieAuthentication", options =>
-{
-    options.Cookie.HttpOnly = true;
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-    options.Cookie.SameSite = SameSiteMode.Strict;
-    options.LoginPath = "/Home/Index";
-    options.LogoutPath = "/Home/Index";
-    options.AccessDeniedPath = "/Home/Index";
-    options.SlidingExpiration = false;
-    options.ExpireTimeSpan = TimeSpan.FromHours(6);
-});
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.Cookie.SameSite = SameSiteMode.Strict;
+        options.LoginPath = "/Home/Index";
+        options.LogoutPath = "/Home/Index";
+        options.AccessDeniedPath = "/Home/Index";
+        options.SlidingExpiration = false;
+        options.ExpireTimeSpan = TimeSpan.FromHours(6);
+    });
 
 builder.Services.AddAuthorization(options =>
 {

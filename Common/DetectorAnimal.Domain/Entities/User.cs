@@ -1,8 +1,9 @@
-﻿using DetectorAnimal.Domain.Entities.Base;
+﻿using DetectorAnimal.Domain.Base.Entities;
+using DetectorAnimal.Domain.Entities.Base;
 
 namespace DetectorAnimal.Domain.Entities
 {
-    public class User : Entity
+    public class User : Entity, IUser
     {
         public string Name { get; set; }
 

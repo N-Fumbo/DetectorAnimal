@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -17,10 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\DetectorAnimal.Domain\DetectorAnimal.Domain.csproj" />
     <ProjectReference Include="..\..\Data\DetectorAnimal.PgSql\DetectorAnimal.PgSql.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Shared\" />
+    <ProjectReference Include="..\DetectorAnimal.AccountManager\DetectorAnimal.AccountManager.csproj" />
   </ItemGroup>
 
 </Project>
