@@ -9,5 +9,8 @@
   },
   "files": [
     "./TypeScript/index.ts"
+  ],
+  "include": [
+    "./TypeScript/**/*"
   ]
 }
