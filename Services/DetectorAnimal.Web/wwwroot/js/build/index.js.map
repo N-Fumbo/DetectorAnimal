@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","mappings":";;;;;;AAAa;AACb","sources":["webpack://detectoranimal.web/./TypeScript/index.ts"],"sourcesContent":["\"use strict\";\nconsole.log('hi');\n"],"names":[],"sourceRoot":""}
