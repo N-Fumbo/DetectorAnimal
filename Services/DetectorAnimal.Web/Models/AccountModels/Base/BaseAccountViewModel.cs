@@ -1,15 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DetectorAnimal.Web.Models
+namespace DetectorAnimal.Web.Models.AccountModels.Base
 {
-    public class RegistrationViewModel
+    public class BaseAccountViewModel
     {
-        [Required(ErrorMessage = "Это поле не может быть пустым.")]
-        [MinLength(2, ErrorMessage = "Введите корректное имя.")]
-        [MaxLength(40, ErrorMessage = "Введите корректное имя.")]
-        [Display(Name = "Имя")]
-        public string Name { get; set; }
-
         [Required(ErrorMessage = "Это поле не может быть пустым.")]
         [EmailAddress(ErrorMessage = "Введите корректный email адрес.")]
         [Display(Name = nameof(Email))]
@@ -22,11 +16,5 @@ namespace DetectorAnimal.Web.Models
         [RegularExpression(@"^(?=.{6,15})(?=.*\d)(?=.*[A-Z])[^\s]*$", ErrorMessage = "Пароль должен содержать хотя бы одну цифру и одну заглавную букву.")]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        [Compare(nameof(Password), ErrorMessage = "Пароли не совпадают")]
-        [Display(Name = "Подтвердите пароль")]
-        public string PasswordConfirmed { get; set; }
     }
 }

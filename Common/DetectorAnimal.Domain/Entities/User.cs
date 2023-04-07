@@ -11,6 +11,8 @@ namespace DetectorAnimal.Domain.Entities
 
         public string PasswordHash { get; set; }
 
-        public bool IsEmailConfirmed { get; set; }
+        public int IdEmailConfirmation { get; set; }
+
+        public EmailConfirmation EmailConfirmation { get; set; }
     }
 }

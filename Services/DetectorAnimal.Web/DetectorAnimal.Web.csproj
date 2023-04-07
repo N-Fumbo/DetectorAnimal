@@ -17,9 +17,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\DetectorAnimal.Common\DetectorAnimal.Common.csproj" />
     <ProjectReference Include="..\..\Common\DetectorAnimal.Domain\DetectorAnimal.Domain.csproj" />
     <ProjectReference Include="..\..\Data\DetectorAnimal.PgSql\DetectorAnimal.PgSql.csproj" />
     <ProjectReference Include="..\DetectorAnimal.AccountManager\DetectorAnimal.AccountManager.csproj" />
+    <ProjectReference Include="..\DetectorAnimal.MailService\DetectorAnimal.MailService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ValidationAttributes\" />
   </ItemGroup>
 
 </Project>

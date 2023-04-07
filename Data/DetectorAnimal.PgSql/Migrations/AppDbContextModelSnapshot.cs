@@ -36,6 +36,9 @@ namespace DetectorAnimal.Web.Migrations
                         .HasColumnType("character varying(256)")
                         .HasColumnName("email");
 
+                    b.Property<string>("EmailConfirmationToken")
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsEmailConfirmed")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")

@@ -3,6 +3,7 @@ using DetectorAnimal.Dal.Repositories.Base;
 using DetectorAnimal.Domain.Base.Repositories;
 using DetectorAnimal.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DetectorAnimal.Dal.Repositories
 {
@@ -14,30 +15,39 @@ namespace DetectorAnimal.Dal.Repositories
         {
             if (email is null) throw new ArgumentNullException(nameof(email));
 
-            return await Items.AnyAsync(x => x.Email == email, cancel).ConfigureAwait(false);
+            return await _set.AnyAsync(x => x.Email == email, cancel).ConfigureAwait(false);
         }
 
         public async Task<T> GetByEmail(string email, CancellationToken cancel = default)
         {
             if (email is null) throw new ArgumentNullException(nameof(email));
 
-            return await Items.FirstOrDefaultAsync(x => x.Email == email, cancel).ConfigureAwait(false);
+            return await _set.FirstOrDefaultAsync(x => x.Email == email, cancel).ConfigureAwait(false);
         }
 
-        public async Task<T> DeleteByEmail(string email, CancellationToken cancel = default)
+        public async Task<T> GetByEmail(string email, Expression<Func<T, object>>[] includeProperties, CancellationToken cancel = default)
+        {
+            IQueryable<T> query = _set;
+            foreach (var property in includeProperties)
+                query = query.Include(property);
+
+            return await query.FirstAsync(x => x.Email == email, cancel).ConfigureAwait(false);
+        }
+
+        public async Task<T> DeleteByEmail(string email, bool isSaveChanges = false, CancellationToken cancel = default)
         {
             if (email is null) throw new ArgumentNullException(nameof(email));
 
-            var item = Set.Local.FirstOrDefault(x => x.Email == email);
+            var item = _set.Local.FirstOrDefault(x => x.Email == email);
 
-            item ??= await Set
+            item ??= await _set
                     .Select(x => new T { Id = x.Id, Email = x.Email })
                     .FirstOrDefaultAsync(x => x.Email == email, cancel)
                     .ConfigureAwait(false);
 
             if (item is null) return null;
 
-            return await Delete(item, cancel).ConfigureAwait(false);
+            return await Delete(item, isSaveChanges, cancel).ConfigureAwait(false);
         }
     }
 }

@@ -9,7 +9,5 @@ namespace DetectorAnimal.Domain.Base.Entities
         string Email { get; set; }
 
         string PasswordHash { get; set; }
-
-        public bool IsEmailConfirmed { get; set; }
     }
 }

@@ -29,10 +29,13 @@ namespace DetectorAnimal.Dal.EntitiesConfiguration
                 .HasColumnName("password_hash")
                 .IsRequired();
 
-            builder.Property(x => x.IsEmailConfirmed)
-                .HasColumnName("is_email_confirmed")
-                .HasDefaultValue(false)
+            builder.Property(x => x.IdEmailConfirmation)
+                .HasColumnName("id_email_confirmation")
                 .IsRequired();
+
+            builder.HasOne(x => x.EmailConfirmation)
+                .WithOne(x => x.User)
+                .HasForeignKey<User>(x => x.IdEmailConfirmation);
         }
     }
 }

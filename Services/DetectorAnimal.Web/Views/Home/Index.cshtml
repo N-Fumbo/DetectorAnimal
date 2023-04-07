@@ -1,4 +1,6 @@
-﻿@using System.Security.Claims
+﻿@model AuthViewModel
+@using System.Security.Claims
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,13 +14,21 @@
     {
         <p>@User.FindFirst(ClaimTypes.Name)?.Value</p>
         <p>@User.FindFirst(ClaimTypes.Email)?.Value</p>
+
+
         <form method="post" asp-controller="Account" asp-action="Logout">
-            <input type="submit" value="Log Out"/>
+            <input type="submit" value="Log oit" />
         </form>
     }
     else
     {
-        <partial name="../Shared/_RegisterTest.cshtml" />
+        @await Html.PartialAsync("../Shared/_RegisterTest", Model.Register);
+
+        @await Html.PartialAsync("../Shared/_LogInTest", Model.LogIn);
+
+        <form method="post" asp-controller="Home" asp-action="Drop">
+            <input type="submit" value="Drop"/>
+        </form>
     }
 </body>
 </html>
