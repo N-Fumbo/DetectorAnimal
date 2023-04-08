@@ -29,7 +29,7 @@ namespace DetectorAnimal.AccountManager
 
             var result = new ResultAccountManager<User>();
 
-            if (await _userRepository.ExistEmail(user.Email))
+            if (await _userRepository.ExistEmail(user.Email).ConfigureAwait(false))
             {
                 result.StatusCode = StatusCodeAccount.EmailAlreadyRegistered;
                 return result;
@@ -59,7 +59,7 @@ namespace DetectorAnimal.AccountManager
                 return addedUser;
             }
 
-            User addedUser = await _userRepository.ExecuteInTransaction(createAccount);
+            User addedUser = await _userRepository.ExecuteInTransaction(createAccount).ConfigureAwait(false);
 
             result.StatusCode = StatusCodeAccount.OK;
             result.Data = addedUser;
@@ -72,7 +72,7 @@ namespace DetectorAnimal.AccountManager
 
             var result = new ResultAccountManager<User>();
 
-            User dbUser = await _userRepository.GetByEmail(user.Email, includeProperties: new Expression<Func<User, object>>[] { x => x.EmailConfirmation });
+            User dbUser = await _userRepository.GetByEmail(user.Email, includeProperties: new Expression<Func<User, object>>[] { x => x.EmailConfirmation }).ConfigureAwait(false);
             if (dbUser is null)
             {
                 result.StatusCode = StatusCodeAccount.InvalidUserData;
@@ -105,14 +105,14 @@ namespace DetectorAnimal.AccountManager
 
             ResultAccountManager<User> result = new();
 
-            User user = await _userRepository.GetById(id, includeProperties: new Expression<Func<User, object>>[] { x => x.EmailConfirmation });
-            if(user != null)
+            User user = await _userRepository.GetById(id, includeProperties: new Expression<Func<User, object>>[] { x => x.EmailConfirmation }).ConfigureAwait(false);
+            if (user != null)
             {
                 if (user.EmailConfirmation.EmailConfirmationToken == token)
                     user.EmailConfirmation.IsEmailConfirmed = true;
 
-                User updateUser = await _userRepository.Update(user, true);
-                if(updateUser != null)
+                User updateUser = await _userRepository.Update(user, true).ConfigureAwait(false);
+                if (updateUser != null)
                 {
                     result.StatusCode = StatusCodeAccount.OK;
                     result.Data = updateUser;

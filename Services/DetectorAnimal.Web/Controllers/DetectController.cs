@@ -17,9 +17,9 @@ namespace DetectorAnimal.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                byte[] image = await Helper.ConvertIFormFileToByteArrayAsync(model.Image);
+                byte[] image = await Helper.ConvertIFormFileToByteArrayAsync(model.Image).ConfigureAwait(false);
 
-                var result = await _recognition.Recognition(image);
+                var result = await _recognition.Recognition(image).ConfigureAwait(false);
 
                 return Json(result);
             }

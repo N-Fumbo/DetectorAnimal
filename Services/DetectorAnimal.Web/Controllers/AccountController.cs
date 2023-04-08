@@ -31,7 +31,7 @@ namespace DetectorAnimal.Web.Controllers
                     PasswordHash = model.Password
                 };
 
-                var result = await _accountManageService.Register(user);
+                var result = await _accountManageService.Register(user).ConfigureAwait(false);
 
                 if (result.StatusCode == StatusCodeAccount.OK)
                 {
@@ -70,8 +70,8 @@ namespace DetectorAnimal.Web.Controllers
                     PasswordHash = model.Password,
                 };
 
-                var result = await _accountManageService.LogIn(user);
-                if(result.StatusCode == StatusCodeAccount.OK)
+                var result = await _accountManageService.LogIn(user).ConfigureAwait(false);
+                if (result.StatusCode == StatusCodeAccount.OK)
                 {
                     var claims = new List<Claim>
                     {
@@ -80,7 +80,8 @@ namespace DetectorAnimal.Web.Controllers
                         new Claim(ClaimTypes.Name, result.Data.Name)
                     };
                     var principal = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
-                    await HttpContext.SignInAsync(principal);
+
+                    await HttpContext.SignInAsync(principal).ConfigureAwait(false);
 
                     //return Json(new { success = true });
                 }
@@ -115,8 +116,8 @@ namespace DetectorAnimal.Web.Controllers
         {
             if(ModelState.IsValid)
             {
-                var result = await _accountManageService.ConfirmEmail(model.Id, model.Token);
-                if(result.StatusCode == StatusCodeAccount.OK)
+                var result = await _accountManageService.ConfirmEmail(model.Id, model.Token).ConfigureAwait(false);
+                if (result.StatusCode == StatusCodeAccount.OK)
                 {
                     var claims = new List<Claim>
                     {
@@ -125,7 +126,8 @@ namespace DetectorAnimal.Web.Controllers
                         new Claim(ClaimTypes.Name, result.Data.Name)
                     };
                     var principal = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
-                    await HttpContext.SignInAsync(principal);
+
+                    await HttpContext.SignInAsync(principal).ConfigureAwait(false);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -138,7 +140,7 @@ namespace DetectorAnimal.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).ConfigureAwait(false);
             return RedirectToAction("Index", "Home");
         }
     }
