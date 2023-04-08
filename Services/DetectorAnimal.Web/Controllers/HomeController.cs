@@ -1,10 +1,7 @@
-﻿using DetectorAnimal.AccountManager;
-using DetectorAnimal.Dal.Context;
-using DetectorAnimal.MailService;
-using DetectorAnimal.Web.Models.AccountModels;
+﻿using DetectorAnimal.Dal.Context;
+using DetectorAnimal.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace DetectorAnimal.Web.Controllers;
 
@@ -23,7 +20,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var model = new AuthViewModel() { LogIn = new(), Register = new() };
+        var model = new IndexViewModel() { Login = new(), Register = new(), Detect = new() };
         return View(model);
     }
 

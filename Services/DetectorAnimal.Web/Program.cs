@@ -2,6 +2,7 @@ using DetectorAnimal.AccountManager;
 using DetectorAnimal.Dal.Context;
 using DetectorAnimal.Dal.Repositories;
 using DetectorAnimal.Dal.Repositories.Base;
+using DetectorAnimal.Detect;
 using DetectorAnimal.Domain.Entities;
 using DetectorAnimal.Domain.Entities.Base;
 using DetectorAnimal.MailService;
@@ -24,6 +25,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString, m => m.MigrationsAssembly("DetectorAnimal.PgSql"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
+
+builder.Services.AddSingleton<ImageRecognition>();
 
 builder.Services.Configure<EmailServiceSettings>(mailServiceSettings);
 builder.Services.AddScoped<EmailService>();

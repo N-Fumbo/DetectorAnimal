@@ -1,4 +1,4 @@
-﻿@model AuthViewModel
+﻿@model IndexViewModel
 @using System.Security.Claims
 
 <!DOCTYPE html>
@@ -15,6 +15,7 @@
         <p>@User.FindFirst(ClaimTypes.Name)?.Value</p>
         <p>@User.FindFirst(ClaimTypes.Email)?.Value</p>
 
+        @await Html.PartialAsync("../Shared/_DetectTest", Model.Detect);
 
         <form method="post" asp-controller="Account" asp-action="Logout">
             <input type="submit" value="Log oit" />
@@ -24,7 +25,7 @@
     {
         @await Html.PartialAsync("../Shared/_RegisterTest", Model.Register);
 
-        @await Html.PartialAsync("../Shared/_LogInTest", Model.LogIn);
+        @await Html.PartialAsync("../Shared/_LogInTest", Model.Login);
 
         <form method="post" asp-controller="Home" asp-action="Drop">
             <input type="submit" value="Drop"/>

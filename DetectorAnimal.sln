@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DetectorAnimal.MailService"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectorAnimal.Common", "Common\DetectorAnimal.Common\DetectorAnimal.Common.csproj", "{A5F72A05-02C2-4AD4-AFA3-C000BB385926}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectorAnimal.Detect", "Services\DetectorAnimal.Detect\DetectorAnimal.Detect.csproj", "{EDA997A9-977E-4F7F-A866-9D4493C5A0C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{A5F72A05-02C2-4AD4-AFA3-C000BB385926}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5F72A05-02C2-4AD4-AFA3-C000BB385926}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5F72A05-02C2-4AD4-AFA3-C000BB385926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDA997A9-977E-4F7F-A866-9D4493C5A0C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDA997A9-977E-4F7F-A866-9D4493C5A0C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDA997A9-977E-4F7F-A866-9D4493C5A0C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA997A9-977E-4F7F-A866-9D4493C5A0C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{4DFF971F-7836-4ED3-891E-28A7A79AB9C6} = {D132F671-3892-451D-8457-484333988BA9}
 		{99CDBF54-9756-4851-BC69-6712C849F796} = {D132F671-3892-451D-8457-484333988BA9}
 		{A5F72A05-02C2-4AD4-AFA3-C000BB385926} = {B4AAEB16-7957-4249-9180-5564A7776D46}
+		{EDA997A9-977E-4F7F-A866-9D4493C5A0C7} = {D132F671-3892-451D-8457-484333988BA9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {04D90534-842C-492C-8FB6-F11F6DCB394F}

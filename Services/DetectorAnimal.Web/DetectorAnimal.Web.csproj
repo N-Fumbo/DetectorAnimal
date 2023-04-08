@@ -14,6 +14,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
     <ProjectReference Include="..\..\Common\DetectorAnimal.Domain\DetectorAnimal.Domain.csproj" />
     <ProjectReference Include="..\..\Data\DetectorAnimal.PgSql\DetectorAnimal.PgSql.csproj" />
     <ProjectReference Include="..\DetectorAnimal.AccountManager\DetectorAnimal.AccountManager.csproj" />
+    <ProjectReference Include="..\DetectorAnimal.Detect\DetectorAnimal.Detect.csproj" />
     <ProjectReference Include="..\DetectorAnimal.MailService\DetectorAnimal.MailService.csproj" />
   </ItemGroup>
 

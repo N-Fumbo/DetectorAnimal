@@ -1,0 +1,9 @@
+﻿@model DetectImageViewModel
+
+<form method="post" enctype="multipart/form-data" asp-controller="Detect" asp-action="DetectImage">
+    <div class="form-group">
+        <label asp-for="Image"></label>
+        <input type="file" asp-for="Image" accept=".jpg,.jpeg,.png" />
+    </div>
+    <input type="submit" value="Send"/>
+</form>
