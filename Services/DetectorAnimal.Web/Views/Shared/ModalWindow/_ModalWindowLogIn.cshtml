@@ -1,0 +1,24 @@
+﻿@model LogInViewModel
+
+<section id="modal_window_login" class="blackout">
+    <div class="modal_window">
+        <div class="modal_window_container">
+            <form class="form">
+                <h1 class="form_title">Log in</h1>
+                <div class="form_group">
+                    <input class="form_input" placeholder=" ">
+                    <label class="form_label">Email</label>
+                </div>
+                <div class="form_group">
+                    <input class="form_input" placeholder=" ">
+                    <label class="form_label">Password</label>
+                </div>
+                <center>
+                    <button class="form_button">Login</button>
+                </center>
+            </form>
+
+            <partial name="_ModalWindowClose.cshtml" />
+        </div>
+    </div>
+</section>
