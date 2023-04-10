@@ -25,6 +25,9 @@ namespace DetectorAnimal.Dal.EntitiesConfiguration
                 .HasMaxLength(256)
                 .IsRequired();
 
+            builder.HasIndex(x => x.Email)
+                .IsUnique();
+
             builder.Property(x => x.PasswordHash)
                 .HasColumnName("password_hash")
                 .IsRequired();

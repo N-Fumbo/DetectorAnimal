@@ -4,7 +4,6 @@ using DetectorAnimal.Dal.Repositories;
 using DetectorAnimal.Dal.Repositories.Base;
 using DetectorAnimal.Detect;
 using DetectorAnimal.Domain.Entities;
-using DetectorAnimal.Domain.Entities.Base;
 using DetectorAnimal.MailService;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;

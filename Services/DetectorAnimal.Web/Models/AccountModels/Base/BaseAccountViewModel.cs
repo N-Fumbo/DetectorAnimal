@@ -13,7 +13,7 @@ namespace DetectorAnimal.Web.Models.AccountModels.Base
         [DataType(DataType.Password)]
         [MinLength(6, ErrorMessage = "Длина пароля должна быть от 6 до 15 символов.")]
         [MaxLength(15, ErrorMessage = "Длина пароля должна быть от 6 до 15 символов.")]
-        [RegularExpression(@"^(?=.{6,15})(?=.*\d)(?=.*[A-Z])[^\s]*$", ErrorMessage = "Пароль должен содержать хотя бы одну цифру и одну заглавную букву.")]
+        [RegularExpression(@"^(?=.*\d)(?=.*[A-Z]).+$", ErrorMessage = "Пароль должен содержать хотя бы одну цифру и одну заглавную букву.")]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
     }

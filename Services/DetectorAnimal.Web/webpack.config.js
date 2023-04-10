@@ -13,7 +13,11 @@ module.exports = {
         rules: [{
             test: /\.ts$/,
             include: path.resolve(__dirname, "TypeScript"),
-            loader: 'ts-loader'
+            use: [
+                {
+                    loader: 'ts-loader'
+                }
+            ]
         }]
     },
     resolve: {

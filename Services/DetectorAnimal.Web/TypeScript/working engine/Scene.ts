@@ -18,8 +18,8 @@ class Scene {
         this.engine = new Engine();
 
         this.view = document.createElement('canvas');
-
         let context = this.view.getContext('2d');
+        
         if (!context) {
             throw new Error('Unable to get 2D context.');
         }

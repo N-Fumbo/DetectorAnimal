@@ -11,7 +11,7 @@ namespace DetectorAnimal.Web.Models.AccountModels
         [Display(Name = "Имя")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Это поле не может быть пустым.")]
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "Пароли не совпадают")]
         [Display(Name = "Подтвердите пароль")]

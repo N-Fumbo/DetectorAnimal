@@ -20,14 +20,15 @@
                     <label asp-for="Password" class="form_label"></label>
                     <span asp-validation-for="Password" class="form_error"></span>
                 </div>
-                <div class="form_group">
+                <div class="form_group form_group_last">
                     <input asp-for="PasswordConfirmed" class="form_input" placeholder=" ">
                     <label asp-for="PasswordConfirmed" class="form_label"></label>
                     <span asp-validation-for="PasswordConfirmed" class="form_error"></span>
                 </div>
-                <center>
+                <div class="form_group_send">
+                    <span class="form_global_error"></span>
                     <input type="submit" class="form_button" value="Create" />
-                </center>
+                </div>
             </form>
 
             <partial name="_ModalWindowClose.cshtml" />

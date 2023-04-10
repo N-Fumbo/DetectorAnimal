@@ -92,7 +92,6 @@ const createObjects = (sizeCanvas: Size): Array<GeometricObject> => {
             if (circle2 !== null) result.push(circle2);
         }
 
-        //Границы
         result.push(...creatingBorders(sizeCanvas));
     }
 

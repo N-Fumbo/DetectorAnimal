@@ -76,7 +76,6 @@ const createObjects = (sizeCanvas) => {
             if (circle2 !== null)
                 result.push(circle2);
         }
-        //�������
         result.push(...creatingBorders(sizeCanvas));
     }
     return result;

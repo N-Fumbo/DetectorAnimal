@@ -2,10 +2,12 @@
 using DetectorAnimal.Domain.AccountManager;
 using DetectorAnimal.Domain.Entities;
 using DetectorAnimal.Web.Models.AccountModels;
+using DetectorAnimal.Web.Results;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Security.Claims;
 
 namespace DetectorAnimal.Web.Controllers
@@ -20,7 +22,7 @@ namespace DetectorAnimal.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<RequestResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -35,7 +37,7 @@ namespace DetectorAnimal.Web.Controllers
 
                 if (result.StatusCode == StatusCodeAccount.OK)
                 {
-                    //return Json(new { success = true });
+                    return new RequestResult(true, null);
                 }
                 else if (result.StatusCode == StatusCodeAccount.EmailAlreadyRegistered)
                 {
@@ -46,15 +48,12 @@ namespace DetectorAnimal.Web.Controllers
                     ModelState.AddModelError(string.Empty, "Произошла ошибка. Повторите попытку позже.");
                 }
             }
-            //var errors = ModelState.Where(x => x.Value.ValidationState == ModelValidationState.Invalid).Select(x => new
-            //{
-            //    key = x.Key,
-            //    errorMessage = x.Value.Errors.Count > 0 ? x.Value.Errors[0].ErrorMessage : string.Empty
-            //});
 
-            ////return Json(new { success = false, errors });
-            ///
-            return RedirectToAction("Index", "Home");
+            var errors = ModelState.Where(x => x.Value.ValidationState == ModelValidationState.Invalid).Select(x =>
+                new ModelStateError(x.Key, x.Value.Errors.Count > 0 ? x.Value.Errors[0].ErrorMessage : string.Empty)
+            );
+
+            return new RequestResult(false, errors);
         }
 
         [HttpPost]
@@ -89,7 +88,7 @@ namespace DetectorAnimal.Web.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "Неверный логин или пароль.");
                 }
-                else if(result.StatusCode == StatusCodeAccount.UserNotVerified)
+                else if (result.StatusCode == StatusCodeAccount.UserNotVerified)
                 {
                     ModelState.AddModelError(string.Empty, "Email не подтвержден.");
                 }
@@ -114,7 +113,7 @@ namespace DetectorAnimal.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(ConfirmEmailViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var result = await _accountManageService.ConfirmEmail(model.Id, model.Token).ConfigureAwait(false);
                 if (result.StatusCode == StatusCodeAccount.OK)
