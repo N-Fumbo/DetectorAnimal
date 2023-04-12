@@ -1,0 +1,33 @@
+﻿@model RecognitionImageViewModel
+
+<section id="modal_window_recognition" class="blackout">
+    <div class="modal_window">
+        <div class="modal_window_container">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form id="form_recognition" class="form" asp-controller="Recognition" asp-action="RecognitionImage">
+                    @Html.AntiForgeryToken()
+                    <h1 class="form_title">Recognition</h1>
+
+                    <img id="image_preview" class="image_input" src="~/images/image_input.png" alt="input image" />
+
+                    <input asp-for="Image" id="image_input" type="file">
+
+                    <div class="form_group_send">
+                        <span class="form_global_error"></span>
+                        <span id="recognition_result"></span>
+                        <input type="submit" class="form_button" value="Send" />
+                    </div>
+                </form>
+            }
+            else
+            {
+                <form class="form">
+                    <h2>Требуется войти в аккаунт.</h2>
+                </form>
+            }
+
+            <partial name="_ModalWindowClose.cshtml" />
+        </div>
+    </div>
+</section>

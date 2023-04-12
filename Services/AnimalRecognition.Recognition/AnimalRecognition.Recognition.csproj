@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.ML" Version="1.5.5" />
+    <PackageReference Include="Microsoft.ML" Version="1.7.1" />
+    <PackageReference Include="Microsoft.ML.Vision" Version="1.7.1" />
+    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\AnimalRecognition.Common\AnimalRecognition.Common.csproj" />
+    <ProjectReference Include="..\..\Common\AnimalRecognition.Domain.Base\AnimalRecognition.Domain.Base.csproj" />
+    <ProjectReference Include="..\..\Common\AnimalRecognition.Domain\AnimalRecognition.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Models\ModelAnimal.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

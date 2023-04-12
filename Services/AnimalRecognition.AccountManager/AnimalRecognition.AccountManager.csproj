@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\AnimalRecognition.Domain.Base\AnimalRecognition.Domain.Base.csproj" />
+    <ProjectReference Include="..\..\Common\AnimalRecognition.Domain\AnimalRecognition.Domain.csproj" />
+    <ProjectReference Include="..\..\Data\AnimalRecognition.Dal\AnimalRecognition.Dal.csproj" />
+    <ProjectReference Include="..\AnimalRecognition.Mail\AnimalRecognition.Mail.csproj" />
+  </ItemGroup>
+
+</Project>

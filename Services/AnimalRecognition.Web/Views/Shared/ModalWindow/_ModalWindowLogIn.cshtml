@@ -1,0 +1,28 @@
+﻿@model LogInViewModel
+
+<section id="modal_window_login" class="blackout">
+    <div class="modal_window">
+        <div class="modal_window_container">
+            <form id="form_login" class="form" method="post" asp-controller="Account" asp-action="LogIn">
+                @Html.AntiForgeryToken()
+                <h1 class="form_title">Log in</h1>
+                <div class="form_group">
+                    <input asp-for="Email" class="form_input" placeholder=" ">
+                    <label asp-for="Email" class="form_label"></label>
+                    <span asp-validation-for="Email" class="form_error"></span>
+                </div>
+                <div class="form_group form_group_last">
+                    <input asp-for="Password" class="form_input" placeholder=" ">
+                    <label asp-for="Password" class="form_label"></label>
+                    <span asp-validation-for="Password" class="form_error"></span>
+                </div>
+                <div class="form_group_send">
+                    <span class="form_global_error"></span>
+                    <input type="submit" class="form_button" value="Log In" />
+                </div>
+            </form>
+
+            <partial name="_ModalWindowClose.cshtml" />
+        </div>
+    </div>
+</section>

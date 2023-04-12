@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>affd24a1-5f81-4b49-8f30-3abbf3acb2b5</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\AnimalRecognition.Common\AnimalRecognition.Common.csproj" />
+    <ProjectReference Include="..\..\Common\AnimalRecognition.Domain.Base\AnimalRecognition.Domain.Base.csproj" />
+    <ProjectReference Include="..\..\Common\AnimalRecognition.Domain\AnimalRecognition.Domain.csproj" />
+    <ProjectReference Include="..\..\Data\AnimalRecognition.PgSql\AnimalRecognition.PgSql.csproj" />
+    <ProjectReference Include="..\AnimalRecognition.AccountManager\AnimalRecognition.AccountManager.csproj" />
+    <ProjectReference Include="..\AnimalRecognition.Mail\AnimalRecognition.Mail.csproj" />
+    <ProjectReference Include="..\AnimalRecognition.Recognition\AnimalRecognition.Recognition.csproj" />
+  </ItemGroup>
+
+</Project>

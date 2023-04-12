@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "files": [
+    "./TypeScript/indexUserAuthorized.ts",
+    "./TypeScript/indexUserNotAuthorized.ts"
+  ],
+  "include": [
+    "./TypeScript/**/*"
+  ]
+}
