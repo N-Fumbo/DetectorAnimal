@@ -124,8 +124,11 @@ header {
     font-size: 1.5rem;
 }
 
-@media (max-width: 768px) {
+#recognition_result{
+    margin-bottom: 1rem;
+}
 
+@media (max-width: 768px) {
     html {
         font-size: 14px;
     }
