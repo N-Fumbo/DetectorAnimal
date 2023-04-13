@@ -5,10 +5,10 @@ namespace AnimalRecognition.Web.Models.RecognitionModels
 {
     public class RecognitionImageViewModel
     {
-        [Required(ErrorMessage = "Изображение не выбрано.")]
-        [TypeImage(ErrorMessage = "Неверный тип изображения. Изображение должны быть типа: '.jpg', '.jpeg', '.png'")]
-        [SizeImage(ErrorMessage = "Размер файла не должен привышать 10 МБ.")]
-        [Display(Name = "Изображение")]
+        [Required(ErrorMessage = "An image is not selected.")]
+        [TypeImage(ErrorMessage = "Invalid image format. The image should be in the format: '.jpg', '.jpeg', '.png'.")]
+        [SizeImage(ErrorMessage = "The file size should not exceed 10 MB.")]
+        [Display(Name = "Image")]
         public IFormFile Image { get; set; }
     }
 }

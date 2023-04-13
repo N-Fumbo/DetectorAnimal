@@ -25,6 +25,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
+
 builder.Services.AddSingleton<ImageRecognition>();
 
 builder.Services.Configure<EmailServiceSettings>(mailServiceSettings);

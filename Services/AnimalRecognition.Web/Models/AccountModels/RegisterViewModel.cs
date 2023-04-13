@@ -5,16 +5,16 @@ namespace AnimalRecognition.Web.Models.AccountModels
 {
     public class RegisterViewModel : BaseAccountViewModel
     {
-        [Required(ErrorMessage = "Это поле не может быть пустым.")]
-        [MinLength(2, ErrorMessage = "Введите корректное имя.")]
-        [MaxLength(40, ErrorMessage = "Введите корректное имя.")]
-        [Display(Name = "Имя")]
+        [Required(ErrorMessage = "The 'Name' field cannot be empty.")]
+        [MinLength(2, ErrorMessage = "Please enter a valid name.")]
+        [MaxLength(40, ErrorMessage = "Please enter a valid name.")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Это поле не может быть пустым.")]
+        [Required(ErrorMessage = "The 'Confirm your password' field cannot be empty.")]
         [DataType(DataType.Password)]
-        [Compare(nameof(Password), ErrorMessage = "Пароли не совпадают")]
-        [Display(Name = "Подтвердите пароль")]
+        [Compare(nameof(Password), ErrorMessage = "The passwords do not match.")]
+        [Display(Name = "Confirm your password")]
         public string PasswordConfirmed { get; set; }
     }
 }

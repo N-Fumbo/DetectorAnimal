@@ -1,5 +1,4 @@
 ﻿@model IndexViewModel
-@using System.Security.Claims
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,11 +87,11 @@
         @await Html.PartialAsync("../Shared/ModalWindow/_ModalWindowLogIn.cshtml", Model.Login)
 
         <div id="account_created" class="notification">
-            Аккаунт успешно создан.
+            Account created successfully.
             <br>
-            Для подтверждения регистрации необходимо перейти по ссылке,
+            To confirm your registration, please follow the link sent to
             <br>
-            отправленной на указанный при регистрации email адрес.
+            the email address you provided during registration.
         </div>
 
         <script src="~/js/build/indexUserNotAuthorized.js" asp-append-version="true"></script>

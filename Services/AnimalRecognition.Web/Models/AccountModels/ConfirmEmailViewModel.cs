@@ -8,7 +8,7 @@ namespace AnimalRecognition.Web.Models.AccountModels
         [Required]
         public int Id { get; set; }
 
-        [GuidString(ErrorMessage = "Введите корректный код")]
+        [GuidString(ErrorMessage = "Please enter a valid code.")]
         public string Token { get; set; }
     }
 }

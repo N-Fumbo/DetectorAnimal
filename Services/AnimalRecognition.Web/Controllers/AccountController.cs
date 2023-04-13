@@ -41,11 +41,11 @@ namespace AnimalRecognition.Web.Controllers
                 }
                 else if (result.StatusCode == StatusCodeAccount.EmailAlreadyRegistered)
                 {
-                    ModelState.AddModelError(nameof(model.Email), "Такой email уже зарегистрирован.");
+                    ModelState.AddModelError(nameof(model.Email), "This email is already registered.");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Произошла ошибка. Повторите попытку позже.");
+                    ModelState.AddModelError(string.Empty, "An error has occurred. Please try again later.");
                 }
             }
 
@@ -86,15 +86,15 @@ namespace AnimalRecognition.Web.Controllers
                 }
                 else if (result.StatusCode == StatusCodeAccount.InvalidUserData)
                 {
-                    ModelState.AddModelError(string.Empty, "Неверный логин или пароль.");
+                    ModelState.AddModelError(string.Empty, "Invalid login or password.");
                 }
                 else if (result.StatusCode == StatusCodeAccount.UserNotVerified)
                 {
-                    ModelState.AddModelError(string.Empty, "Email не подтвержден.");
+                    ModelState.AddModelError(string.Empty, "Email is not confirmed.");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Произошла ошибка. Повторите попытку позже.");
+                    ModelState.AddModelError(string.Empty, "An error has occurred. Please try again later.");
                 }
             }
 
