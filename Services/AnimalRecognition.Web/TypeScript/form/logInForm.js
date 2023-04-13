@@ -7,17 +7,18 @@ const jquery_1 = __importDefault(require("jquery"));
 require("jquery-validation");
 require("jquery-validation-unobtrusive");
 function submit() {
+    const globalErrorLogInt = (0, jquery_1.default)('#form_login .form_global_error');
     (0, jquery_1.default)('#form_login').on('submit', function (e) {
         e.preventDefault();
         const formData = (0, jquery_1.default)(this).serialize();
         const submitInput = (0, jquery_1.default)(this).find('input[type="submit"]');
         submitInput.prop('disabled', true);
+        globalErrorLogInt.text('');
         jquery_1.default.ajax({
             url: 'Account/LogIn',
             type: 'post',
             data: formData,
             success: function (result) {
-                (0, jquery_1.default)(`#form_login .form_global_error`).text('');
                 if (result.success) {
                     location.reload();
                 }
@@ -28,7 +29,7 @@ function submit() {
                                 (0, jquery_1.default)(`#form_login span[data-valmsg-for='${error.key}']`).text(error.errorMessage);
                             }
                             else {
-                                (0, jquery_1.default)(`#form_login .form_global_error`).text(error.errorMessage);
+                                globalErrorLogInt.text(error.errorMessage);
                             }
                         });
                     }

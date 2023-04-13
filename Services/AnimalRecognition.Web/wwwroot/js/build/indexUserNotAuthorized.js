@@ -14221,17 +14221,18 @@ const jquery_1 = __importDefault(__webpack_require__(/*! jquery */ "./node_modul
 __webpack_require__(/*! jquery-validation */ "./node_modules/jquery-validation/dist/jquery.validate.js");
 __webpack_require__(/*! jquery-validation-unobtrusive */ "./node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js");
 function submit() {
+    const globalErrorLogInt = (0, jquery_1.default)('#form_login .form_global_error');
     (0, jquery_1.default)('#form_login').on('submit', function (e) {
         e.preventDefault();
         const formData = (0, jquery_1.default)(this).serialize();
         const submitInput = (0, jquery_1.default)(this).find('input[type="submit"]');
         submitInput.prop('disabled', true);
+        globalErrorLogInt.text('');
         jquery_1.default.ajax({
             url: 'Account/LogIn',
             type: 'post',
             data: formData,
             success: function (result) {
-                (0, jquery_1.default)(`#form_login .form_global_error`).text('');
                 if (result.success) {
                     location.reload();
                 }
@@ -14242,7 +14243,7 @@ function submit() {
                                 (0, jquery_1.default)(`#form_login span[data-valmsg-for='${error.key}']`).text(error.errorMessage);
                             }
                             else {
-                                (0, jquery_1.default)(`#form_login .form_global_error`).text(error.errorMessage);
+                                globalErrorLogInt.text(error.errorMessage);
                             }
                         });
                     }
@@ -14278,17 +14279,18 @@ __webpack_require__(/*! jquery-validation-unobtrusive */ "./node_modules/jquery-
 const Notification_1 = __importDefault(__webpack_require__(/*! ../Notification */ "./TypeScript/Notification.ts"));
 const ModalWindow_1 = __importDefault(__webpack_require__(/*! ../ModalWindow */ "./TypeScript/ModalWindow.ts"));
 function submit() {
+    const globalErrorRegister = (0, jquery_1.default)(`#form_register .form_global_error`);
     (0, jquery_1.default)('#form_register').on('submit', function (e) {
         e.preventDefault();
         const formData = (0, jquery_1.default)(this).serialize();
         const submitInput = (0, jquery_1.default)(this).find('input[type="submit"]');
         submitInput.prop('disabled', true);
+        globalErrorRegister.text('');
         jquery_1.default.ajax({
             url: 'Account/Register',
             type: 'post',
             data: formData,
             success: function (result) {
-                (0, jquery_1.default)(`#form_register .form_global_error`).text('');
                 if (result.success) {
                     const modalWindowRegister = new ModalWindow_1.default('#modal_window_register');
                     modalWindowRegister.close();
@@ -14302,7 +14304,7 @@ function submit() {
                                 (0, jquery_1.default)(`#form_register span[data-valmsg-for='${error.key}']`).text(error.errorMessage);
                             }
                             else {
-                                (0, jquery_1.default)(`#form_register .form_global_error`).text(error.errorMessage);
+                                globalErrorRegister.text(error.errorMessage);
                             }
                         });
                     }
@@ -14633,6 +14635,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const ModalWindow_1 = __importDefault(__webpack_require__(/*! ../../ModalWindow */ "./TypeScript/ModalWindow.ts"));
 const RectangleStyle_1 = __importDefault(__webpack_require__(/*! ../../engine/style objects/RectangleStyle */ "./TypeScript/engine/style objects/RectangleStyle.ts"));
 const InitObject_1 = __importDefault(__webpack_require__(/*! ./base/InitObject */ "./TypeScript/working engine/init objects/base/InitObject.ts"));
+const jquery_1 = __importDefault(__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"));
 class InitObjectUserAurhorized extends InitObject_1.default {
     init(sizeCanvas) {
         const result = [];
@@ -14643,9 +14646,13 @@ class InitObjectUserAurhorized extends InitObject_1.default {
             const font = `${fontSize}px ${fontFamily}`;
             const butLogOut = this.createObjectByElementId('button_canvas_logout', new RectangleStyle_1.default({ font, strokeStyle: 'black', colorText: 'black', lineWidth: 2 }));
             if (butLogOut !== null) {
-                butLogOut.addEvent('click', () => {
-                });
-                result.push(butLogOut);
+                const logout = (0, jquery_1.default)('#logout');
+                if (logout.length > 0) {
+                    butLogOut.addEvent('click', () => {
+                        logout.trigger('click');
+                    });
+                    result.push(butLogOut);
+                }
             }
             const butDetect = this.createObjectByElementId('button_canvas_detect', new RectangleStyle_1.default({ font, strokeStyle: 'black', fillStyle: 'black', colorText: 'white', lineWidth: 2 }));
             if (butDetect !== null) {

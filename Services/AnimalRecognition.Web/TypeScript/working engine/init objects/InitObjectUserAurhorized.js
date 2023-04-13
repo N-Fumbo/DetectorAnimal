@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ModalWindow_1 = __importDefault(require("../../ModalWindow"));
 const RectangleStyle_1 = __importDefault(require("../../engine/style objects/RectangleStyle"));
 const InitObject_1 = __importDefault(require("./base/InitObject"));
+const jquery_1 = __importDefault(require("jquery"));
 class InitObjectUserAurhorized extends InitObject_1.default {
     init(sizeCanvas) {
         const result = [];
@@ -16,9 +17,13 @@ class InitObjectUserAurhorized extends InitObject_1.default {
             const font = `${fontSize}px ${fontFamily}`;
             const butLogOut = this.createObjectByElementId('button_canvas_logout', new RectangleStyle_1.default({ font, strokeStyle: 'black', colorText: 'black', lineWidth: 2 }));
             if (butLogOut !== null) {
-                butLogOut.addEvent('click', () => {
-                });
-                result.push(butLogOut);
+                const logout = (0, jquery_1.default)('#logout');
+                if (logout.length > 0) {
+                    butLogOut.addEvent('click', () => {
+                        logout.trigger('click');
+                    });
+                    result.push(butLogOut);
+                }
             }
             const butDetect = this.createObjectByElementId('button_canvas_detect', new RectangleStyle_1.default({ font, strokeStyle: 'black', fillStyle: 'black', colorText: 'white', lineWidth: 2 }));
             if (butDetect !== null) {

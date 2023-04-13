@@ -28,6 +28,8 @@ function submit() {
             const formData = new FormData(this);
             const submitInput = (0, jquery_1.default)(this).find('input[type="submit"]');
             submitInput.prop('disabled', true);
+            globalError.text('');
+            recognitionResult.text('');
             jquery_1.default.ajax({
                 url: 'Recognition/RecognitionImage',
                 type: 'post',
@@ -35,8 +37,6 @@ function submit() {
                 processData: false,
                 contentType: false,
                 success: function (result) {
-                    globalError.text('');
-                    recognitionResult.text('');
                     if (result.success) {
                         recognitionResult.text(`Entity: ${result.entity}. Percent: ${result.percent}`);
                     }

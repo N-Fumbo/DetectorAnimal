@@ -8,7 +8,15 @@ const preloader_1 = __importDefault(require("./preloader"));
 const recognitionForm_1 = __importDefault(require("./form/recognitionForm"));
 const ModalWindow_1 = __importDefault(require("./ModalWindow"));
 (0, jquery_1.default)(() => {
-    (0, recognitionForm_1.default)();
+    const modalWindowPrivacy = new ModalWindow_1.default('#modal_window_privacy');
+    (0, jquery_1.default)('#privacy').on('click', function (e) {
+        e.preventDefault();
+        modalWindowPrivacy.open();
+    });
+    (0, jquery_1.default)('#modal_window_privacy .modal_window_close').on('click', function (e) {
+        e.preventDefault();
+        modalWindowPrivacy.close();
+    });
     const modalWindowLogIn = new ModalWindow_1.default('#modal_window_recognition');
     (0, jquery_1.default)('#recognition').on('click', function (e) {
         e.preventDefault();
@@ -20,5 +28,6 @@ const ModalWindow_1 = __importDefault(require("./ModalWindow"));
         if (modalWindowLogIn !== null)
             modalWindowLogIn.close();
     });
+    (0, recognitionForm_1.default)();
     (0, preloader_1.default)(true);
 });

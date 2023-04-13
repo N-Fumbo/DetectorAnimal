@@ -119,14 +119,16 @@ header {
     padding: 0px 20px;
 }
 
-.nav_links li a {
+.btn_link {
     transition: all 0.3s ease 0s;
     text-transform: uppercase;
     position: relative;
     z-index: 60;
+    border: none;
+    cursor: pointer;
 }
 
-.nav_links li a:hover {
+.btn_link:hover {
     color: var(--color-accent);
 }
 
@@ -368,6 +370,17 @@ header {
     transition: 0.5s;
 }
 
+.form_input:focus {
+    border-bottom: 1px solid var(--color-accent);
+}
+
+.form_input:focus ~ .form_label,
+.form_input:not(:placeholder-shown) ~ .form_label {
+    top: -18px;
+    font-size: 12px;
+    color: #e0e0e0;
+}
+
 form input[type="file"] {
     margin-top: 0.7rem;
     padding: 10px;
@@ -380,17 +393,6 @@ form input[type="file"] {
 
 form input[type="file"]:hover {
     background-color: #eee;
-}
-
-.form_input:focus {
-    border-bottom: 1px solid var(--color-accent);
-}
-
-.form_input:focus ~ .form_label,
-.form_input:not(:placeholder-shown) ~ .form_label {
-    top: -18px;
-    font-size: 12px;
-    color: #e0e0e0;
 }
 
 .form_button {

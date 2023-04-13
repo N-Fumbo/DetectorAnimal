@@ -20,17 +20,22 @@
         <h2 class="logo">Animal Recognition</h2>
         <nav class="header_main">
             <ul class="nav_links">
-                <li><a asp-controller="Home" asp-action="Index" >Home</a></li>
-                <li><a id="privacy" href="#">Privacy</a></li>
+                <li><a class="btn_link" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a id="privacy" class="btn_link" href="#">Privacy</a></li>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li><a id="recognition" href="#">Identify</a></li>
-                    <li><a id="logout" href="#">Log Out</a></li>
+                    <li><a id="recognition" class="btn_link" href="#">Identify</a></li>
+                    <li>
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            @Html.AntiForgeryToken()
+                            <input id="logout" class="btn_link" type="submit" value="Log out" />
+                        </form>
+                    </li>
                 }
                 else
                 {
-                    <li><a id="register" href="#">Register</a></li>
-                    <li><a id="login" href="#">Log In</a></li>
+                    <li><a id="register" class="btn_link" href="#">Register</a></li>
+                    <li><a id="login" class="btn_link" href="#">Log In</a></li>
                 }
             </ul>
         </nav>

@@ -4,6 +4,7 @@ import Rectangle from '../../engine/objects/Rectangle';
 import GeometricObject from '../../engine/objects/base/GeometricObject';
 import RectangleStyle from '../../engine/style objects/RectangleStyle';
 import InitObject from './base/InitObject';
+import $ from 'jquery';
 
 class InitObjectUserAurhorized extends InitObject {
 
@@ -20,10 +21,13 @@ class InitObjectUserAurhorized extends InitObject {
                 new RectangleStyle({ font, strokeStyle: 'black', colorText: 'black', lineWidth: 2 }));
 
             if (butLogOut !== null) {
-                butLogOut.addEvent('click', () => {
-                    
-                });
-                result.push(butLogOut);
+                const logout = $('#logout');
+                if (logout.length > 0) {
+                    butLogOut.addEvent('click', () => {
+                        logout.trigger('click');
+                    });
+                    result.push(butLogOut);
+                }
             }
 
             const butDetect: Rectangle | null = this.createObjectByElementId('button_canvas_detect',
@@ -47,7 +51,6 @@ class InitObjectUserAurhorized extends InitObject {
             result.push(...this.createCircles());
 
             result.push(...this.creatingBorders(sizeCanvas));
-
         }
 
         return result;

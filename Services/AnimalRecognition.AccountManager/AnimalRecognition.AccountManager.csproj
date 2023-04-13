@@ -7,10 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="mustache-sharp" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Common\AnimalRecognition.Domain.Base\AnimalRecognition.Domain.Base.csproj" />
     <ProjectReference Include="..\..\Common\AnimalRecognition.Domain\AnimalRecognition.Domain.csproj" />
     <ProjectReference Include="..\..\Data\AnimalRecognition.Dal\AnimalRecognition.Dal.csproj" />
     <ProjectReference Include="..\AnimalRecognition.Mail\AnimalRecognition.Mail.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Html\ConfirmationEmailTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

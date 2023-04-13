@@ -6,6 +6,9 @@ import ModalWindow from '../ModalWindow';
 import { RequestResult } from '../additional'
 
 function submit() {
+
+    const globalErrorRegister = $(`#form_register .form_global_error`);
+
     $('#form_register').on('submit', function (e) {
         e.preventDefault();
 
@@ -14,12 +17,13 @@ function submit() {
         const submitInput = $(this).find('input[type="submit"]');
         submitInput.prop('disabled', true);
 
+        globalErrorRegister.text('');
+
         $.ajax({
             url: 'Account/Register',
             type: 'post',
             data: formData,
             success: function (result: RequestResult) {
-                $(`#form_register .form_global_error`).text('');
                 if (result.success) {
                     const modalWindowRegister = new ModalWindow('#modal_window_register');
                     modalWindowRegister.close();
@@ -33,7 +37,7 @@ function submit() {
                                 $(`#form_register span[data-valmsg-for='${error.key}']`).text(error.errorMessage);
                             }
                             else {
-                                $(`#form_register .form_global_error`).text(error.errorMessage);
+                                globalErrorRegister.text(error.errorMessage);
                             }
                         });
                     }

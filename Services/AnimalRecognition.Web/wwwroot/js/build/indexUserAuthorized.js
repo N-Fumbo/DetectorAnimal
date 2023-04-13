@@ -12102,6 +12102,8 @@ function submit() {
             const formData = new FormData(this);
             const submitInput = (0, jquery_1.default)(this).find('input[type="submit"]');
             submitInput.prop('disabled', true);
+            globalError.text('');
+            recognitionResult.text('');
             jquery_1.default.ajax({
                 url: 'Recognition/RecognitionImage',
                 type: 'post',
@@ -12109,8 +12111,6 @@ function submit() {
                 processData: false,
                 contentType: false,
                 success: function (result) {
-                    globalError.text('');
-                    recognitionResult.text('');
                     if (result.success) {
                         recognitionResult.text(`Entity: ${result.entity}. Percent: ${result.percent}`);
                     }
@@ -12152,7 +12152,15 @@ const preloader_1 = __importDefault(__webpack_require__(/*! ./preloader */ "./Ty
 const recognitionForm_1 = __importDefault(__webpack_require__(/*! ./form/recognitionForm */ "./TypeScript/form/recognitionForm.ts"));
 const ModalWindow_1 = __importDefault(__webpack_require__(/*! ./ModalWindow */ "./TypeScript/ModalWindow.ts"));
 (0, jquery_1.default)(() => {
-    (0, recognitionForm_1.default)();
+    const modalWindowPrivacy = new ModalWindow_1.default('#modal_window_privacy');
+    (0, jquery_1.default)('#privacy').on('click', function (e) {
+        e.preventDefault();
+        modalWindowPrivacy.open();
+    });
+    (0, jquery_1.default)('#modal_window_privacy .modal_window_close').on('click', function (e) {
+        e.preventDefault();
+        modalWindowPrivacy.close();
+    });
     const modalWindowLogIn = new ModalWindow_1.default('#modal_window_recognition');
     (0, jquery_1.default)('#recognition').on('click', function (e) {
         e.preventDefault();
@@ -12164,6 +12172,7 @@ const ModalWindow_1 = __importDefault(__webpack_require__(/*! ./ModalWindow */ "
         if (modalWindowLogIn !== null)
             modalWindowLogIn.close();
     });
+    (0, recognitionForm_1.default)();
     (0, preloader_1.default)(true);
 });
 
@@ -12425,6 +12434,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const ModalWindow_1 = __importDefault(__webpack_require__(/*! ../../ModalWindow */ "./TypeScript/ModalWindow.ts"));
 const RectangleStyle_1 = __importDefault(__webpack_require__(/*! ../../engine/style objects/RectangleStyle */ "./TypeScript/engine/style objects/RectangleStyle.ts"));
 const InitObject_1 = __importDefault(__webpack_require__(/*! ./base/InitObject */ "./TypeScript/working engine/init objects/base/InitObject.ts"));
+const jquery_1 = __importDefault(__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"));
 class InitObjectUserAurhorized extends InitObject_1.default {
     init(sizeCanvas) {
         const result = [];
@@ -12435,9 +12445,13 @@ class InitObjectUserAurhorized extends InitObject_1.default {
             const font = `${fontSize}px ${fontFamily}`;
             const butLogOut = this.createObjectByElementId('button_canvas_logout', new RectangleStyle_1.default({ font, strokeStyle: 'black', colorText: 'black', lineWidth: 2 }));
             if (butLogOut !== null) {
-                butLogOut.addEvent('click', () => {
-                });
-                result.push(butLogOut);
+                const logout = (0, jquery_1.default)('#logout');
+                if (logout.length > 0) {
+                    butLogOut.addEvent('click', () => {
+                        logout.trigger('click');
+                    });
+                    result.push(butLogOut);
+                }
             }
             const butDetect = this.createObjectByElementId('button_canvas_detect', new RectangleStyle_1.default({ font, strokeStyle: 'black', fillStyle: 'black', colorText: 'white', lineWidth: 2 }));
             if (butDetect !== null) {
