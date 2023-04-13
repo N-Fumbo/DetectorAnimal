@@ -21,11 +21,11 @@
         <nav class="header_main">
             <ul class="nav_links">
                 <li><a asp-controller="Home" asp-action="Index" >Home</a></li>
-                <li><a href="#">Privacy</a></li>
+                <li><a id="privacy" href="#">Privacy</a></li>
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li><a id="recognition" href="#">Identify</a></li>
-                    <li><a id="logout">Log Out</a></li>
+                    <li><a id="logout" href="#">Log Out</a></li>
                 }
                 else
                 {
@@ -70,6 +70,8 @@
     {
         <div id="rectangle_name" class="rectangle">@User.FindFirst(ClaimTypes.Name)?.Value</div>
     }
+
+    <partial name="../Shared/ModalWindow/_ModalWindowPrivacy.cshtml" />
 
     @await Html.PartialAsync("../Shared/ModalWindow/_ModalWindowRecognition.cshtml", Model.Recognition)
     

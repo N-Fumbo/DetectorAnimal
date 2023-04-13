@@ -60,11 +60,11 @@ a {
 /*Canvas*/
 .button_canvas, .rectangle {
     font-size: 1.5rem;
-    height: 60px;
     opacity: 0;
 }
 
 .button_canvas {
+    height: 60px;
     width: 160px;
 }
 
@@ -73,9 +73,10 @@ a {
 }
 
 #rectangle_name {
+    height: 100px;
     position: absolute;
-    left: 5%;
-    bottom: 50%;
+    top: 0;
+    left: 40%;
 }
 
 #circle_1 {
@@ -235,6 +236,18 @@ header {
     width: 100%;
     height: 100%;
 }
+
+/*Модальное окно privacy*/
+#modal_window_privacy > .modal_window {
+    width: 400px;
+    padding: 50px;
+}
+
+.content_privacy {
+    letter-spacing: 1px;
+    text-align: center;
+}
+
 
 /*Закрыть модальное окно*/
 .modal_window_close {
@@ -517,5 +530,10 @@ form input[type="file"]:hover {
 
     .modal_window {
         width: 80%;
+    }
+
+    #modal_window_privacy > .modal_window {
+        width: 70%;
+        padding: 40px;
     }
 }
