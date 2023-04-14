@@ -1,10 +1,12 @@
 import $ from 'jquery';
 import preloader from "./preloader";
-import submitRecognitionForm from './form/recognitionForm'
+import submitRecognitionForm from './form/recognition'
 import ModalWindow from './ModalWindow';
 
-$(() => {
+function initializeModals() {
     const modalWindowPrivacy = new ModalWindow('#modal_window_privacy');
+    const modalWindowLogIn = new ModalWindow('#modal_window_recognition');
+
     $('#privacy').on('click', function (e) {
         e.preventDefault();
         modalWindowPrivacy.open();
@@ -14,8 +16,6 @@ $(() => {
         e.preventDefault();
         modalWindowPrivacy.close();
     });
-
-    const modalWindowLogIn = new ModalWindow('#modal_window_recognition');
     $('#recognition').on('click', function (e) {
         e.preventDefault();
         if (modalWindowLogIn !== null) modalWindowLogIn.open();
@@ -25,8 +25,15 @@ $(() => {
         e.preventDefault();
         if (modalWindowLogIn !== null) modalWindowLogIn.close();
     });
+}
 
+function initializeForms() {
     submitRecognitionForm();
+}
+
+$(() => {
+    initializeModals();
+    initializeForms();
 
     preloader(true);
 });

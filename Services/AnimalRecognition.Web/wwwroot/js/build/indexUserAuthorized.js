@@ -12065,10 +12065,69 @@ exports["default"] = ObjectStyle;
 
 /***/ }),
 
-/***/ "./TypeScript/form/recognitionForm.ts":
-/*!********************************************!*\
-  !*** ./TypeScript/form/recognitionForm.ts ***!
-  \********************************************/
+/***/ "./TypeScript/form/common.ts":
+/*!***********************************!*\
+  !*** ./TypeScript/form/common.ts ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.handlePostRequestFormData = exports.handlePostRequestSerialize = void 0;
+const jquery_1 = __importDefault(__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"));
+function handlePostRequest(selectorForm, url, data, success) {
+    const globalError = (0, jquery_1.default)(`${selectorForm} .form_global_error`);
+    const submitInput = (0, jquery_1.default)(`${selectorForm} input[type="submit"]`);
+    submitInput.prop('disabled', true);
+    globalError.text('');
+    const settings = {
+        url,
+        data,
+        success,
+        type: 'post',
+        error: function () {
+            globalError.text('An error has occurred. Please try again later.');
+        },
+        complete: function () {
+            submitInput.prop('disabled', false);
+        }
+    };
+    if (data instanceof FormData) {
+        settings.processData = false;
+        settings.contentType = false;
+    }
+    jquery_1.default.ajax(settings);
+}
+function handlePostRequestSerialize(selectorForm, url, success) {
+    (0, jquery_1.default)(selectorForm).on('submit', function (e) {
+        e.preventDefault();
+        const data = (0, jquery_1.default)(this).serialize();
+        handlePostRequest(selectorForm, url, data, success);
+    });
+}
+exports.handlePostRequestSerialize = handlePostRequestSerialize;
+function handlePostRequestFormData(selectorForm, url, success) {
+    (0, jquery_1.default)(selectorForm).on('submit', function (e) {
+        e.preventDefault();
+        if (typeof this === "object" && this instanceof HTMLFormElement) {
+            const data = new FormData(this);
+            handlePostRequest(selectorForm, url, data, success);
+        }
+    });
+}
+exports.handlePostRequestFormData = handlePostRequestFormData;
+
+
+/***/ }),
+
+/***/ "./TypeScript/form/recognition.ts":
+/*!****************************************!*\
+  !*** ./TypeScript/form/recognition.ts ***!
+  \****************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12078,6 +12137,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const jquery_1 = __importDefault(__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"));
+const common_1 = __webpack_require__(/*! ./common */ "./TypeScript/form/common.ts");
 function preview() {
     const imageInput = (0, jquery_1.default)('#image_input');
     const imagePreview = (0, jquery_1.default)('#image_preview');
@@ -12095,38 +12155,16 @@ function preview() {
 function submit() {
     preview();
     const recognitionResult = (0, jquery_1.default)('#recognition_result');
-    const globalError = (0, jquery_1.default)(`#form_recognition .form_global_error`);
-    (0, jquery_1.default)('#form_recognition').on('submit', function (e) {
-        e.preventDefault();
-        if (typeof this === "object" && this instanceof HTMLFormElement) {
-            const formData = new FormData(this);
-            const submitInput = (0, jquery_1.default)(this).find('input[type="submit"]');
-            submitInput.prop('disabled', true);
-            globalError.text('');
-            recognitionResult.text('');
-            jquery_1.default.ajax({
-                url: 'Recognition/RecognitionImage',
-                type: 'post',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (result) {
-                    if (result.success) {
-                        recognitionResult.text(`Entity: ${result.entity}. Percent: ${result.percent}`);
-                    }
-                    else {
-                        if (result.errors) {
-                            result.errors.forEach(error => {
-                                globalError.text(error.errorMessage);
-                            });
-                        }
-                    }
-                    submitInput.prop('disabled', false);
-                },
-                error: function () {
-                    submitInput.prop('disabled', false);
-                }
-            });
+    (0, common_1.handlePostRequestFormData)('#form_recognition', 'Recognition/RecognitionImage', function (result) {
+        if (result.success) {
+            recognitionResult.text(`Entity: ${result.entity}. Percent: ${result.percent}`);
+        }
+        else {
+            if (result.errors) {
+                result.errors.forEach(error => {
+                    (0, jquery_1.default)(`#form_recognition .form_global_error`).text(error.errorMessage);
+                });
+            }
         }
     });
 }
@@ -12149,10 +12187,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const jquery_1 = __importDefault(__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"));
 const preloader_1 = __importDefault(__webpack_require__(/*! ./preloader */ "./TypeScript/preloader.ts"));
-const recognitionForm_1 = __importDefault(__webpack_require__(/*! ./form/recognitionForm */ "./TypeScript/form/recognitionForm.ts"));
+const recognition_1 = __importDefault(__webpack_require__(/*! ./form/recognition */ "./TypeScript/form/recognition.ts"));
 const ModalWindow_1 = __importDefault(__webpack_require__(/*! ./ModalWindow */ "./TypeScript/ModalWindow.ts"));
-(0, jquery_1.default)(() => {
+function initializeModals() {
     const modalWindowPrivacy = new ModalWindow_1.default('#modal_window_privacy');
+    const modalWindowLogIn = new ModalWindow_1.default('#modal_window_recognition');
     (0, jquery_1.default)('#privacy').on('click', function (e) {
         e.preventDefault();
         modalWindowPrivacy.open();
@@ -12161,7 +12200,6 @@ const ModalWindow_1 = __importDefault(__webpack_require__(/*! ./ModalWindow */ "
         e.preventDefault();
         modalWindowPrivacy.close();
     });
-    const modalWindowLogIn = new ModalWindow_1.default('#modal_window_recognition');
     (0, jquery_1.default)('#recognition').on('click', function (e) {
         e.preventDefault();
         if (modalWindowLogIn !== null)
@@ -12172,7 +12210,13 @@ const ModalWindow_1 = __importDefault(__webpack_require__(/*! ./ModalWindow */ "
         if (modalWindowLogIn !== null)
             modalWindowLogIn.close();
     });
-    (0, recognitionForm_1.default)();
+}
+function initializeForms() {
+    (0, recognition_1.default)();
+}
+(0, jquery_1.default)(() => {
+    initializeModals();
+    initializeForms();
     (0, preloader_1.default)(true);
 });
 

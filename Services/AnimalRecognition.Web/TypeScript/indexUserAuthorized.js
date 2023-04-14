@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jquery_1 = __importDefault(require("jquery"));
 const preloader_1 = __importDefault(require("./preloader"));
-const recognitionForm_1 = __importDefault(require("./form/recognitionForm"));
+const recognition_1 = __importDefault(require("./form/recognition"));
 const ModalWindow_1 = __importDefault(require("./ModalWindow"));
 (0, jquery_1.default)(() => {
     const modalWindowPrivacy = new ModalWindow_1.default('#modal_window_privacy');
@@ -28,6 +28,6 @@ const ModalWindow_1 = __importDefault(require("./ModalWindow"));
         if (modalWindowLogIn !== null)
             modalWindowLogIn.close();
     });
-    (0, recognitionForm_1.default)();
+    (0, recognition_1.default)();
     (0, preloader_1.default)(true);
 });

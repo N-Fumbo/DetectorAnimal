@@ -14205,10 +14205,69 @@ exports["default"] = ObjectStyle;
 
 /***/ }),
 
-/***/ "./TypeScript/form/logInForm.ts":
-/*!**************************************!*\
-  !*** ./TypeScript/form/logInForm.ts ***!
-  \**************************************/
+/***/ "./TypeScript/form/common.ts":
+/*!***********************************!*\
+  !*** ./TypeScript/form/common.ts ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.handlePostRequestFormData = exports.handlePostRequestSerialize = void 0;
+const jquery_1 = __importDefault(__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"));
+function handlePostRequest(selectorForm, url, data, success) {
+    const globalError = (0, jquery_1.default)(`${selectorForm} .form_global_error`);
+    const submitInput = (0, jquery_1.default)(`${selectorForm} input[type="submit"]`);
+    submitInput.prop('disabled', true);
+    globalError.text('');
+    const settings = {
+        url,
+        data,
+        success,
+        type: 'post',
+        error: function () {
+            globalError.text('An error has occurred. Please try again later.');
+        },
+        complete: function () {
+            submitInput.prop('disabled', false);
+        }
+    };
+    if (data instanceof FormData) {
+        settings.processData = false;
+        settings.contentType = false;
+    }
+    jquery_1.default.ajax(settings);
+}
+function handlePostRequestSerialize(selectorForm, url, success) {
+    (0, jquery_1.default)(selectorForm).on('submit', function (e) {
+        e.preventDefault();
+        const data = (0, jquery_1.default)(this).serialize();
+        handlePostRequest(selectorForm, url, data, success);
+    });
+}
+exports.handlePostRequestSerialize = handlePostRequestSerialize;
+function handlePostRequestFormData(selectorForm, url, success) {
+    (0, jquery_1.default)(selectorForm).on('submit', function (e) {
+        e.preventDefault();
+        if (typeof this === "object" && this instanceof HTMLFormElement) {
+            const data = new FormData(this);
+            handlePostRequest(selectorForm, url, data, success);
+        }
+    });
+}
+exports.handlePostRequestFormData = handlePostRequestFormData;
+
+
+/***/ }),
+
+/***/ "./TypeScript/form/login.ts":
+/*!**********************************!*\
+  !*** ./TypeScript/form/login.ts ***!
+  \**********************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14218,42 +14277,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const jquery_1 = __importDefault(__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"));
-__webpack_require__(/*! jquery-validation */ "./node_modules/jquery-validation/dist/jquery.validate.js");
-__webpack_require__(/*! jquery-validation-unobtrusive */ "./node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js");
+const common_1 = __webpack_require__(/*! ./common */ "./TypeScript/form/common.ts");
 function submit() {
-    const globalErrorLogInt = (0, jquery_1.default)('#form_login .form_global_error');
-    (0, jquery_1.default)('#form_login').on('submit', function (e) {
-        e.preventDefault();
-        const formData = (0, jquery_1.default)(this).serialize();
-        const submitInput = (0, jquery_1.default)(this).find('input[type="submit"]');
-        submitInput.prop('disabled', true);
-        globalErrorLogInt.text('');
-        jquery_1.default.ajax({
-            url: 'Account/LogIn',
-            type: 'post',
-            data: formData,
-            success: function (result) {
-                if (result.success) {
-                    location.reload();
-                }
-                else {
-                    if (result.errors) {
-                        result.errors.forEach(error => {
-                            if (error.key !== '') {
-                                (0, jquery_1.default)(`#form_login span[data-valmsg-for='${error.key}']`).text(error.errorMessage);
-                            }
-                            else {
-                                globalErrorLogInt.text(error.errorMessage);
-                            }
-                        });
+    (0, common_1.handlePostRequestSerialize)('#form_login', 'Account/LogIn', function (result) {
+        if (result.success) {
+            location.reload();
+        }
+        else {
+            if (result.errors) {
+                result.errors.forEach(error => {
+                    if (error.key !== '') {
+                        (0, jquery_1.default)(`#form_login span[data-valmsg-for='${error.key}']`).text(error.errorMessage);
                     }
-                }
-                submitInput.prop('disabled', false);
-            },
-            error: function () {
-                submitInput.prop('disabled', false);
+                    else {
+                        (0, jquery_1.default)('#form_login .form_global_error').text(error.errorMessage);
+                    }
+                });
             }
-        });
+        }
     });
 }
 exports["default"] = submit;
@@ -14261,10 +14302,10 @@ exports["default"] = submit;
 
 /***/ }),
 
-/***/ "./TypeScript/form/registerForm.ts":
-/*!*****************************************!*\
-  !*** ./TypeScript/form/registerForm.ts ***!
-  \*****************************************/
+/***/ "./TypeScript/form/register.ts":
+/*!*************************************!*\
+  !*** ./TypeScript/form/register.ts ***!
+  \*************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14274,47 +14315,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const jquery_1 = __importDefault(__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"));
-__webpack_require__(/*! jquery-validation */ "./node_modules/jquery-validation/dist/jquery.validate.js");
-__webpack_require__(/*! jquery-validation-unobtrusive */ "./node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js");
 const Notification_1 = __importDefault(__webpack_require__(/*! ../Notification */ "./TypeScript/Notification.ts"));
 const ModalWindow_1 = __importDefault(__webpack_require__(/*! ../ModalWindow */ "./TypeScript/ModalWindow.ts"));
+const common_1 = __webpack_require__(/*! ./common */ "./TypeScript/form/common.ts");
 function submit() {
-    const globalErrorRegister = (0, jquery_1.default)(`#form_register .form_global_error`);
-    (0, jquery_1.default)('#form_register').on('submit', function (e) {
-        e.preventDefault();
-        const formData = (0, jquery_1.default)(this).serialize();
-        const submitInput = (0, jquery_1.default)(this).find('input[type="submit"]');
-        submitInput.prop('disabled', true);
-        globalErrorRegister.text('');
-        jquery_1.default.ajax({
-            url: 'Account/Register',
-            type: 'post',
-            data: formData,
-            success: function (result) {
-                if (result.success) {
-                    const modalWindowRegister = new ModalWindow_1.default('#modal_window_register');
-                    modalWindowRegister.close();
-                    const notification = new Notification_1.default((0, jquery_1.default)('#account_created'));
-                    notification.show(8000);
-                }
-                else {
-                    if (result.errors) {
-                        result.errors.forEach(error => {
-                            if (error.key !== '') {
-                                (0, jquery_1.default)(`#form_register span[data-valmsg-for='${error.key}']`).text(error.errorMessage);
-                            }
-                            else {
-                                globalErrorRegister.text(error.errorMessage);
-                            }
-                        });
+    (0, common_1.handlePostRequestSerialize)('#form_register', 'Account/Register', function (result) {
+        if (result.success) {
+            const modalWindowRegister = new ModalWindow_1.default('#modal_window_register');
+            modalWindowRegister.close();
+            const notification = new Notification_1.default((0, jquery_1.default)('#account_created'));
+            notification.show(8000);
+        }
+        else {
+            if (result.errors) {
+                result.errors.forEach(error => {
+                    if (error.key !== '') {
+                        (0, jquery_1.default)(`#form_register span[data-valmsg-for='${error.key}']`).text(error.errorMessage);
                     }
-                }
-                submitInput.prop('disabled', false);
-            },
-            error: function () {
-                submitInput.prop('disabled', false);
+                    else {
+                        (0, jquery_1.default)(`#form_register .form_global_error`).text(error.errorMessage);
+                    }
+                });
             }
-        });
+        }
     });
 }
 exports["default"] = submit;
@@ -14335,12 +14358,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const jquery_1 = __importDefault(__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"));
+__webpack_require__(/*! jquery-validation */ "./node_modules/jquery-validation/dist/jquery.validate.js");
+__webpack_require__(/*! jquery-validation-unobtrusive */ "./node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js");
 const ModalWindow_1 = __importDefault(__webpack_require__(/*! ./ModalWindow */ "./TypeScript/ModalWindow.ts"));
 const preloader_1 = __importDefault(__webpack_require__(/*! ./preloader */ "./TypeScript/preloader.ts"));
-const registerForm_1 = __importDefault(__webpack_require__(/*! ./form/registerForm */ "./TypeScript/form/registerForm.ts"));
-const logInForm_1 = __importDefault(__webpack_require__(/*! ./form/logInForm */ "./TypeScript/form/logInForm.ts"));
-(0, jquery_1.default)(() => {
+const register_1 = __importDefault(__webpack_require__(/*! ./form/register */ "./TypeScript/form/register.ts"));
+const login_1 = __importDefault(__webpack_require__(/*! ./form/login */ "./TypeScript/form/login.ts"));
+function initializeModals() {
     const modalWindowPrivacy = new ModalWindow_1.default('#modal_window_privacy');
+    const modalWindowLogIn = new ModalWindow_1.default('#modal_window_login');
+    const modalWindowRegister = new ModalWindow_1.default('#modal_window_register');
+    const modalWindowDetect = new ModalWindow_1.default('#modal_window_recognition');
     (0, jquery_1.default)('#privacy').on('click', function (e) {
         e.preventDefault();
         modalWindowPrivacy.open();
@@ -14349,7 +14377,6 @@ const logInForm_1 = __importDefault(__webpack_require__(/*! ./form/logInForm */ 
         e.preventDefault();
         modalWindowPrivacy.close();
     });
-    const modalWindowLogIn = new ModalWindow_1.default('#modal_window_login');
     (0, jquery_1.default)('#login').on('click', function (e) {
         e.preventDefault();
         modalWindowLogIn.open();
@@ -14358,7 +14385,6 @@ const logInForm_1 = __importDefault(__webpack_require__(/*! ./form/logInForm */ 
         e.preventDefault();
         modalWindowLogIn.close();
     });
-    const modalWindowRegister = new ModalWindow_1.default('#modal_window_register');
     (0, jquery_1.default)('#register').on('click', function (e) {
         e.preventDefault();
         modalWindowRegister.open();
@@ -14367,13 +14393,18 @@ const logInForm_1 = __importDefault(__webpack_require__(/*! ./form/logInForm */ 
         e.preventDefault();
         modalWindowRegister.close();
     });
-    const modalWindowDetect = new ModalWindow_1.default('#modal_window_recognition');
     (0, jquery_1.default)('#modal_window_recognition .modal_window_close').on('click', function (e) {
         e.preventDefault();
         modalWindowDetect.close();
     });
-    (0, registerForm_1.default)();
-    (0, logInForm_1.default)();
+}
+function initializeForms() {
+    (0, register_1.default)();
+    (0, login_1.default)();
+}
+(0, jquery_1.default)(() => {
+    initializeModals();
+    (0, login_1.default)();
     (0, preloader_1.default)(false);
 });
 

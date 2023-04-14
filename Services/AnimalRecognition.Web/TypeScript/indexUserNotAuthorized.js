@@ -4,10 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const jquery_1 = __importDefault(require("jquery"));
+require("jquery-validation");
+require("jquery-validation-unobtrusive");
 const ModalWindow_1 = __importDefault(require("./ModalWindow"));
 const preloader_1 = __importDefault(require("./preloader"));
-const registerForm_1 = __importDefault(require("./form/registerForm"));
-const logInForm_1 = __importDefault(require("./form/logInForm"));
+const register_1 = __importDefault(require("./form/register"));
+const login_1 = __importDefault(require("./form/login"));
 (0, jquery_1.default)(() => {
     const modalWindowPrivacy = new ModalWindow_1.default('#modal_window_privacy');
     (0, jquery_1.default)('#privacy').on('click', function (e) {
@@ -41,7 +43,7 @@ const logInForm_1 = __importDefault(require("./form/logInForm"));
         e.preventDefault();
         modalWindowDetect.close();
     });
-    (0, registerForm_1.default)();
-    (0, logInForm_1.default)();
+    (0, register_1.default)();
+    (0, login_1.default)();
     (0, preloader_1.default)(false);
 });

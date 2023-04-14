@@ -16,7 +16,6 @@ namespace AnimalRecognition.AccountManager
 
         private readonly EmailService _emailService;
 
-
         public AccountManagerService(UserRepository<User> userRepository, EmailService emailService)
         {
             if (userRepository is null) throw new ArgumentNullException(nameof(userRepository));
@@ -62,7 +61,7 @@ namespace AnimalRecognition.AccountManager
                 var parsedTemplate = generator.Compile(_confirmationEmailTemplate);
                 var resultTemplate = parsedTemplate.Render(data);
 
-                await _emailService.SendMessageAsync(addedUser.Email, "Animal Recognition", "detect@animal.com", "Confirm your mail", resultTemplate, cancel).ConfigureAwait(false);
+                await _emailService.SendMessageAsync(addedUser.Email, "Animal Recognition", "recognition@animal.com", "Confirm your mail", resultTemplate, cancel).ConfigureAwait(false);
 
                 return addedUser;
             }
