@@ -1,6 +1,6 @@
-﻿using AnimalRecognition.Web.Results.Base;
+﻿using AnimalRecognition.Web.Dto.Request.Base;
 
-namespace AnimalRecognition.Web.Results
+namespace AnimalRecognition.Web.Dto.Request
 {
     public class RequestRecognitionResult : RequestResult
     {
@@ -10,7 +10,7 @@ namespace AnimalRecognition.Web.Results
 
         public RequestRecognitionResult(bool success, IEnumerable<ModelStateError> errors = null) : base(success, errors) { }
 
-        public RequestRecognitionResult(bool success, string entity, float percent) : base(success, null) => 
+        public RequestRecognitionResult(bool success, string entity, float percent) : base(success, null) =>
             (Entity, Percent) = (entity, percent);
     }
 }

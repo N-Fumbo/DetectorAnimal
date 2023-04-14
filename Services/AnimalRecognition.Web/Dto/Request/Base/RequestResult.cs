@@ -1,4 +1,4 @@
-﻿namespace AnimalRecognition.Web.Results.Base
+﻿namespace AnimalRecognition.Web.Dto.Request.Base
 {
     public class RequestResult
     {

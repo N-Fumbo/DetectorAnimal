@@ -2,9 +2,9 @@
 using AnimalRecognition.Common;
 using AnimalRecognition.Detect;
 using Microsoft.AspNetCore.Mvc;
-using AnimalRecognition.Web.Results;
-using AnimalRecognition.Web.Results.Base;
+using AnimalRecognition.Web.Dto.Request.Base;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using AnimalRecognition.Web.Dto.Request;
 
 namespace AnimalRecognition.Web.Controllers
 {

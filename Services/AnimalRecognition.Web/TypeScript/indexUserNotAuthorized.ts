@@ -55,6 +55,6 @@ function initializeForms() {
 
 $(() => {
     initializeModals();
-    submitLogInForm();
+    initializeForms();
     preloader(false);
 })

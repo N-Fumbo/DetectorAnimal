@@ -79,11 +79,11 @@ namespace AnimalRecognition.AccountManager
 
             var result = new ResultAccountManager<User>();
 
-            if (await _userRepository.ExistEmail(user.Email, cancel).ConfigureAwait(false) is false)
-            {
-                result.StatusCode = StatusCodeAccount.InvalidUserData;
-                return result;
-            }
+            //if (await _userRepository.ExistEmail(user.Email, cancel).ConfigureAwait(false) is false)
+            //{
+            //    result.StatusCode = StatusCodeAccount.InvalidUserData;
+            //    return result;
+            //}
 
             User dbUser = await _userRepository.GetByEmail(user.Email, includeProperties: new Expression<Func<User, object>>[] { x => x.EmailConfirmation }, cancel: cancel).ConfigureAwait(false) ??
                 throw new Exception($"User is not found: {user.Email}");

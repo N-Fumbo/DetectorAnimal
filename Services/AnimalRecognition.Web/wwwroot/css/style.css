@@ -162,6 +162,28 @@ header {
     font-size: 1.5rem;
 }
 
+/*Main error page*/
+.container_error {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content_error {
+    text-align: center;
+}
+
+.content_error > .status_code {
+    font-size: 10rem;
+}
+
+.content_error > .message {
+    letter-spacing: 1px;
+    font-size: 2rem;
+}
+
 /*Preloaders*/
 @keyframes preloader_loader {
     0% {

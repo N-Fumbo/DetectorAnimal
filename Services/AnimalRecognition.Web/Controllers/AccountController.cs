@@ -1,8 +1,8 @@
 ﻿using AnimalRecognition.AccountManager;
 using AnimalRecognition.Domain.AccountManager;
 using AnimalRecognition.Domain.Entities;
+using AnimalRecognition.Web.Dto.Request.Base;
 using AnimalRecognition.Web.Models.AccountModels;
-using AnimalRecognition.Web.Results.Base;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
