@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jquery_1 = __importDefault(require("jquery"));
 const common_1 = require("./common");
 function submit() {
-    (0, common_1.handlePostRequestSerialize)('#form_login', 'Account/LogIn', function (result) {
+    (0, common_1.handlePostRequestSerialize)('#form_login', 'Account/LogIn', true, function (result) {
         if (result.success) {
             location.reload();
         }

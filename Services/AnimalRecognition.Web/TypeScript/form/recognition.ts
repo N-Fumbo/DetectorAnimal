@@ -24,9 +24,14 @@ function submit() {
 
     const recognitionResult: JQuery<HTMLInputElement> = $('#recognition_result');
 
-    handlePostRequestFormData('#form_recognition', 'Recognition/RecognitionImage', function (result: RequestRecognitionResult) {
+    handlePostRequestFormData('#form_recognition', 'Recognition/RecognitionImage', false, function (result: RequestRecognitionResult) {
         if (result.success) {
-            recognitionResult.text(`Entity: ${result.entity}. Percent: ${result.percent}`);
+            if (result.entity !== null && result.percent !== null) {
+                recognitionResult.text(`Entity: ${result.entity}. Probability: ${(result.percent * 100).toFixed(2)}%`);
+            }
+            else {
+                recognitionResult.text('Try again');
+            }
         }
         else {
             if (result.errors) {

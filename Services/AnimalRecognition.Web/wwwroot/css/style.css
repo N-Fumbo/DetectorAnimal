@@ -57,6 +57,10 @@ a {
     width: 100%;
 }
 
+.link{
+    color: var(--color-accent);
+}
+
 /*Canvas*/
 .button_canvas, .rectangle {
     font-size: 1.5rem;
@@ -403,6 +407,11 @@ header {
     color: #e0e0e0;
 }
 
+.form_input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #F1F2F3 inset;
+    box-shadow: 0 0 0px 1000px #F1F2F3 inset;
+}
+
 form input[type="file"] {
     margin-top: 0.7rem;
     padding: 10px;
@@ -434,6 +443,35 @@ form input[type="file"]:hover {
     background-color: transparent;
     color: black;
     outline: 1px solid black;
+}
+
+/*Форма, анимация отправки*/
+.form_loading_container {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.form_loading_content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form_loader {
+    width: 60px;
+    height: 60px;
+    animation: preloader_loader 0.7s linear infinite;
+    border-radius: 50%;
+    box-shadow: 0 3.6px 0 0 white;
+    transform-origin: 30px 30px;
+    box-sizing: content-box;
 }
 
 /*Форма распознования*/

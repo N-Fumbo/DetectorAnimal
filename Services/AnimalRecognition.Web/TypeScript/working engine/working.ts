@@ -29,6 +29,10 @@ const working = (isUserAuthorized: boolean): void => {
         scene.view.addEventListener('mouseleave', () => eventScene.outside());
     }
 
+    if (isUserAuthorized === false) {
+        setTimeout(() => scene.isWorkingEngine = true, 7000);
+    }
+
     const iterations: number = 20;
 
     let lastTimestamp: number = performance.now();

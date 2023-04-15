@@ -25,7 +25,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
-
 builder.Services.AddSingleton<ImageRecognition>();
 
 builder.Services.Configure<EmailServiceSettings>(mailServiceSettings);
@@ -34,6 +33,11 @@ builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<DbRepository<EmailConfirmation>>();
 builder.Services.AddScoped<UserRepository<User>>();
 builder.Services.AddScoped<AccountManagerService>();
+
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddSeq("http://localhost:5341");
+});
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

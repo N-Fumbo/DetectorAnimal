@@ -3,7 +3,7 @@ import { RequestResult } from '../additional'
 import { handlePostRequestSerialize } from './common';
 
 function submit() {
-    handlePostRequestSerialize('#form_login', 'Account/LogIn', function (result: RequestResult) {
+    handlePostRequestSerialize('#form_login', 'Account/LogIn', true, function (result: RequestResult) {
         if (result.success) {
             location.reload();
         }

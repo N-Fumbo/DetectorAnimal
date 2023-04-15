@@ -8,7 +8,7 @@ const Notification_1 = __importDefault(require("../Notification"));
 const ModalWindow_1 = __importDefault(require("../ModalWindow"));
 const common_1 = require("./common");
 function submit() {
-    (0, common_1.handlePostRequestSerialize)('#form_register', 'Account/Register', function (result) {
+    (0, common_1.handlePostRequestSerialize)('#form_register', 'Account/Register', true, function (result) {
         if (result.success) {
             const modalWindowRegister = new ModalWindow_1.default('#modal_window_register');
             modalWindowRegister.close();

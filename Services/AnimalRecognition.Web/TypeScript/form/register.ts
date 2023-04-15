@@ -5,7 +5,7 @@ import { RequestResult } from '../additional'
 import { handlePostRequestSerialize } from './common';
 
 function submit() {
-    handlePostRequestSerialize('#form_register', 'Account/Register', function (result: RequestResult) {
+    handlePostRequestSerialize('#form_register', 'Account/Register', true, function (result: RequestResult) {
         if (result.success) {
             const modalWindowRegister = new ModalWindow('#modal_window_register');
             modalWindowRegister.close();

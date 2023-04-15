@@ -22,6 +22,9 @@ const working = (isUserAuthorized) => {
         scene.view.addEventListener('mousemove', (e) => eventScene.move(e, false));
         scene.view.addEventListener('mouseleave', () => eventScene.outside());
     }
+    if (isUserAuthorized === false) {
+        setTimeout(() => scene.isWorkingEngine = true, 7000);
+    }
     const iterations = 20;
     let lastTimestamp = performance.now();
     const tick = (timestamp) => {

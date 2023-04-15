@@ -2,11 +2,10 @@
 {
     public static class HashPasswordHelper
     {
-        public static string HasPassword(string password)
-        {
-            //TODO: Create Has Password
+        public static string HasPassword(string password) =>
+            BCrypt.Net.BCrypt.HashPassword(password, 12);
 
-            return password;
-        }
+        public static bool Verify(string password, string passwordHash) =>
+            BCrypt.Net.BCrypt.Verify(password, passwordHash);
     }
 }

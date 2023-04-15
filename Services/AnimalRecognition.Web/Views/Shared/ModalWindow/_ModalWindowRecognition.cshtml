@@ -18,6 +18,8 @@
                         <span id="recognition_result"></span>
                         <input type="submit" class="form_button" value="Send" />
                     </div>
+
+                    <partial name="Components/_ModalWindowComponentLoading.cshtml" />
                 </form>
             }
             else
@@ -27,8 +29,7 @@
                     <br>
                 </center>
             }
-
-            <partial name="_ModalWindowClose.cshtml" />
+            <partial name="Components/_ModalWindowComponentClose.cshtml" />
         </div>
     </div>
 </section>

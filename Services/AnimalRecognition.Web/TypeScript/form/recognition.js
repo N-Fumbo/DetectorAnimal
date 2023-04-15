@@ -22,9 +22,14 @@ function preview() {
 function submit() {
     preview();
     const recognitionResult = (0, jquery_1.default)('#recognition_result');
-    (0, common_1.handlePostRequestFormData)('#form_recognition', 'Recognition/RecognitionImage', function (result) {
+    (0, common_1.handlePostRequestFormData)('#form_recognition', 'Recognition/RecognitionImage', false, function (result) {
         if (result.success) {
-            recognitionResult.text(`Entity: ${result.entity}. Percent: ${result.percent}`);
+            if (result.entity !== null && result.percent !== null) {
+                recognitionResult.text(`Entity: ${result.entity}. Probability: ${(result.percent * 100).toFixed(2)}%`);
+            }
+            else {
+                recognitionResult.text('Try again');
+            }
         }
         else {
             if (result.errors) {
