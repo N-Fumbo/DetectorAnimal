@@ -21,7 +21,7 @@ if (!mailServiceSettings.Exists()) throw new InvalidOperationException("section 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseNpgsql(connectionString, m => m.MigrationsAssembly("DetectorAnimal.PgSql"));
+    options.UseNpgsql(connectionString, m => m.MigrationsAssembly("AnimalRecognition.PgSql"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
