@@ -24,7 +24,9 @@ namespace AnimalRecognition.Web.Controllers
 
                 var result = await _recognition.Recognition(image).ConfigureAwait(false);
 
-                return new RequestRecognitionResult(true, result.Entity, result.Percent);
+                return result.Percent > 0.7 ? 
+                    new RequestRecognitionResult(true, result.Entity, result.Percent) : 
+                    new RequestRecognitionResult(true, "Unknown", 0);
             }
 
             var errors = ModelState.Where(x => x.Value.ValidationState == ModelValidationState.Invalid).Select(x =>

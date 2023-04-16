@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: {
         indexUserAuthorized: path.resolve(__dirname) + '/TypeScript/indexUserAuthorized.ts',
         indexUserNotAuthorized: path.resolve(__dirname) + '/TypeScript/indexUserNotAuthorized.ts',

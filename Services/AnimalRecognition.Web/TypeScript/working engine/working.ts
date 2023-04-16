@@ -8,11 +8,13 @@ const working = (isUserAuthorized: boolean): void => {
 
     const initObject: InitObject = isUserAuthorized ? new InitObjectUserAurhorized() : new InitObjectUserNotAurhorized();
 
-    const scene: Scene = new Scene(isUserAuthorized, initObject);
+    const isMobile: boolean = 'ontouchstart' in window;
+
+    const scene: Scene = new Scene(initObject, isUserAuthorized, isMobile);
 
     const eventScene: EventScene = new EventScene(scene);
 
-    if ('ontouchstart' in window && typeof TouchEvent !== 'undefined') {
+    if (isMobile && typeof TouchEvent !== 'undefined') {
         scene.view.addEventListener('touchstart', (e: TouchEvent) => eventScene.down(e));
 
         scene.view.addEventListener('touchend', (e: TouchEvent) => eventScene.up(e));

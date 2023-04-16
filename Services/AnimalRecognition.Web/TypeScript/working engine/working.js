@@ -9,18 +9,13 @@ const InitObjectUserNotAurhorized_1 = __importDefault(require("./init objects/In
 const InitObjectUserAurhorized_1 = __importDefault(require("./init objects/InitObjectUserAurhorized"));
 const working = (isUserAuthorized) => {
     const initObject = isUserAuthorized ? new InitObjectUserAurhorized_1.default() : new InitObjectUserNotAurhorized_1.default();
-    const scene = new Scene_1.default(isUserAuthorized, initObject);
+    const isMobile = 'ontouchstart' in window;
+    const scene = new Scene_1.default(initObject, isUserAuthorized, isMobile);
     const eventScene = new EventScene_1.default(scene);
-    scene.view.addEventListener('mousedown', (e) => eventScene.down(e));
-    scene.view.addEventListener('mouseup', (e) => eventScene.up(e));
-    scene.view.addEventListener('mousemove', (e) => eventScene.move(e, false));
-    scene.view.addEventListener('mouseleave', () => eventScene.outside());
-    if ('ontouchstart' in window) {
-        if (typeof TouchEvent !== 'undefined') {
-            scene.view.addEventListener('touchstart', (e) => eventScene.down(e));
-            scene.view.addEventListener('touchend', (e) => eventScene.up(e));
-            scene.view.addEventListener('touchmove', (e) => eventScene.move(e, true));
-        }
+    if (isMobile && typeof TouchEvent !== 'undefined') {
+        scene.view.addEventListener('touchstart', (e) => eventScene.down(e));
+        scene.view.addEventListener('touchend', (e) => eventScene.up(e));
+        scene.view.addEventListener('touchmove', (e) => eventScene.move(e, true));
     }
     else {
         scene.view.addEventListener('mousedown', (e) => eventScene.down(e));

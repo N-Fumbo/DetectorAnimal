@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Engine_1 = __importDefault(require("../engine/Engine"));
 const SizeScreen_1 = __importDefault(require("./SizeScreen"));
 class Scene {
-    constructor(isWorkingEngine, initObject) {
+    constructor(initObject, isWorkingEngine, isMobile) {
         this.engine = new Engine_1.default();
         this.initObject = initObject;
         this.engine = new Engine_1.default();
@@ -18,7 +18,9 @@ class Scene {
         this.context = context;
         this.isWorkingEngine = isWorkingEngine;
         this.resize();
-        window.addEventListener('resize', () => this.resize());
+        if (isMobile === false) {
+            window.addEventListener('resize', () => this.resize());
+        }
         document.body.append(this.view);
     }
     getSizeScene() {

@@ -7,24 +7,12 @@ class SizeScreen {
     }
 
     public static getSizeScreen(): Size {
-        if (this.isMobile()) {
-            const deviceWidth = screen.width;
-            const deviceHeight = screen.height;
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-
-            const isViewportScaled =
-                windowWidth !== deviceWidth || windowHeight !== deviceHeight;
-
-            return {
-                width: isViewportScaled ? deviceWidth : windowWidth,
-                height: isViewportScaled ? deviceHeight : windowHeight,
-            };
-        }
+        const windowWidth = document.documentElement.clientWidth;
+        const windowHeight = document.documentElement.clientHeight;
 
         return {
-            width: window.innerWidth,
-            height: window.innerHeight,
+            width: windowWidth,
+            height: windowHeight,
         };
     }
 }

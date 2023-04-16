@@ -7,6 +7,7 @@ const Vector_1 = __importDefault(require("../engine/math objects/Vector"));
 const geometry_1 = require("../engine/math/geometry");
 class EventScene {
     constructor(scene) {
+        this.forceMovement = 30;
         this.capturedObject = null;
         this.lastCursorPosition = null;
         this.startClick = null;
@@ -34,7 +35,9 @@ class EventScene {
     move(e, isMobile) {
         const cursorPosition = EventScene.getCursorPosition(e, this.scene.view.getBoundingClientRect());
         if (this.capturedObject !== null) {
-            this.capturedObject.velocity = this.lastCursorPosition !== null ? Vector_1.default.multiply(Vector_1.default.subtract(cursorPosition, this.lastCursorPosition), 30) : Vector_1.default.zero();
+            this.capturedObject.velocity = this.lastCursorPosition !== null ?
+                Vector_1.default.multiply(Vector_1.default.subtract(cursorPosition, this.lastCursorPosition), this.forceMovement) :
+                Vector_1.default.zero();
         }
         else if (!isMobile) {
             this.scene.view.style.cursor = EventScene.findCapturedObject(cursorPosition, this.scene.engine.objects) !== null ? 'pointer' : 'default';

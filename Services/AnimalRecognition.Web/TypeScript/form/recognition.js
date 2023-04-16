@@ -27,6 +27,9 @@ function submit() {
             if (result.entity !== null && result.percent !== null) {
                 recognitionResult.text(`Entity: ${result.entity}. Probability: ${(result.percent * 100).toFixed(2)}%`);
             }
+            else if (result.entity !== null) {
+                recognitionResult.text(`Entity: ${result.entity}.`);
+            }
             else {
                 recognitionResult.text('Try again');
             }

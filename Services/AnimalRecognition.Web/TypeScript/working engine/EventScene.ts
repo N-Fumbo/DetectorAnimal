@@ -8,6 +8,8 @@ class EventScene {
 
     private readonly scene: Scene;
 
+    private readonly forceMovement: number = 30;
+
     private capturedObject: GeometricObject | null = null;
 
     private lastCursorPosition: Vector | null = null;
@@ -46,7 +48,10 @@ class EventScene {
         const cursorPosition: Vector = EventScene.getCursorPosition(e, this.scene.view.getBoundingClientRect());
 
         if (this.capturedObject !== null) {
-            this.capturedObject.velocity = this.lastCursorPosition !== null ? Vector.multiply(Vector.subtract(cursorPosition, this.lastCursorPosition), 30) : Vector.zero();
+
+            this.capturedObject.velocity = this.lastCursorPosition !== null ?
+                Vector.multiply(Vector.subtract(cursorPosition, this.lastCursorPosition), this.forceMovement) :
+                Vector.zero();
         }
         else if (!isMobile) {
             this.scene.view.style.cursor = EventScene.findCapturedObject(cursorPosition, this.scene.engine.objects) !== null ? 'pointer' : 'default';

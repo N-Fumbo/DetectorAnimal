@@ -16,7 +16,7 @@ class Scene {
 
     private readonly initObject: InitObject;
 
-    constructor(isWorkingEngine: boolean, initObject: InitObject) {
+    constructor(initObject: InitObject, isWorkingEngine: boolean, isMobile: boolean) {
         this.initObject = initObject;
 
         this.engine = new Engine();
@@ -34,7 +34,10 @@ class Scene {
 
         this.resize();
 
-        window.addEventListener('resize', () => this.resize());
+
+        if (isMobile === false) {
+            window.addEventListener('resize', () => this.resize());
+        }
 
         document.body.append(this.view);
     }

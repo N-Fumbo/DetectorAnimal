@@ -5,6 +5,7 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>affd24a1-5f81-4b49-8f30-3abbf3acb2b5</UserSecretsId>
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
