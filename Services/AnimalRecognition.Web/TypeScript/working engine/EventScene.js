@@ -48,13 +48,14 @@ class EventScene {
         }
     }
     static getCursorPosition(e, rectCanvas) {
-        if (e instanceof TouchEvent) {
+        if (typeof TouchEvent !== 'undefined' && e instanceof TouchEvent) {
             const touch = e.touches[0] || e.changedTouches[0];
             return new Vector_1.default(touch.clientX - rectCanvas.left, touch.clientY - rectCanvas.top);
         }
-        else {
+        else if (e instanceof MouseEvent) {
             return new Vector_1.default(e.clientX - rectCanvas.left, e.clientY - rectCanvas.top);
         }
+        return Vector_1.default.zero();
     }
     static findCapturedObject(cursorPosition, objects) {
         let result = null;

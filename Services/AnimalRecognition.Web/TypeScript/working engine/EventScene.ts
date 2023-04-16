@@ -63,13 +63,15 @@ class EventScene {
     }
 
     private static getCursorPosition(e: MouseEvent | TouchEvent, rectCanvas: DOMRect): Vector {
-        if (e instanceof TouchEvent) {
+        if (typeof TouchEvent !== 'undefined' && e instanceof TouchEvent) {
             const touch = e.touches[0] || e.changedTouches[0];
             return new Vector(touch.clientX - rectCanvas.left, touch.clientY - rectCanvas.top);
         }
-        else {
+        else if (e instanceof MouseEvent) {
             return new Vector(e.clientX - rectCanvas.left, e.clientY - rectCanvas.top);
         }
+
+        return Vector.zero();
     }
 
     private static findCapturedObject(cursorPosition: Vector, objects: Array<GeometricObject>): GeometricObject | null {

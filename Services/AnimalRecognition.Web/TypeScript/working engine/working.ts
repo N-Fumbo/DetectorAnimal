@@ -12,7 +12,7 @@ const working = (isUserAuthorized: boolean): void => {
 
     const eventScene: EventScene = new EventScene(scene);
 
-    if ('ontouchstart' in window) {
+    if ('ontouchstart' in window && typeof TouchEvent !== 'undefined') {
         scene.view.addEventListener('touchstart', (e: TouchEvent) => eventScene.down(e));
 
         scene.view.addEventListener('touchend', (e: TouchEvent) => eventScene.up(e));

@@ -54,7 +54,7 @@ namespace AnimalRecognition.AccountManager
                 User addedUser = await _userRepository.Add(user, isSaveChanges: true, cancel: cancel).ConfigureAwait(false);
                 if (addedUser is null) throw new InvalidOperationException(nameof(addedUser));
 
-                string urlVerificationEmail = $"https://localhost:7271/Account/ConfirmEmail/{addedUser.Id}/{addedUser.EmailConfirmation.EmailConfirmationToken}";
+                string urlVerificationEmail = $"https://animalrecognition.space/Account/ConfirmEmail/{addedUser.Id}/{addedUser.EmailConfirmation.EmailConfirmationToken}";
 
                 var data = new { urlVerificationEmail };
                 var generator = new FormatCompiler();

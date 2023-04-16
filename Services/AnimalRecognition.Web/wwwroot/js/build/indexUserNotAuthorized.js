@@ -14529,13 +14529,14 @@ class EventScene {
         }
     }
     static getCursorPosition(e, rectCanvas) {
-        if (e instanceof TouchEvent) {
+        if (typeof TouchEvent !== 'undefined' && e instanceof TouchEvent) {
             const touch = e.touches[0] || e.changedTouches[0];
             return new Vector_1.default(touch.clientX - rectCanvas.left, touch.clientY - rectCanvas.top);
         }
-        else {
+        else if (e instanceof MouseEvent) {
             return new Vector_1.default(e.clientX - rectCanvas.left, e.clientY - rectCanvas.top);
         }
+        return Vector_1.default.zero();
     }
     static findCapturedObject(cursorPosition, objects) {
         let result = null;
@@ -14858,7 +14859,7 @@ const working = (isUserAuthorized) => {
     const initObject = isUserAuthorized ? new InitObjectUserAurhorized_1.default() : new InitObjectUserNotAurhorized_1.default();
     const scene = new Scene_1.default(isUserAuthorized, initObject);
     const eventScene = new EventScene_1.default(scene);
-    if ('ontouchstart' in window) {
+    if ('ontouchstart' in window && typeof TouchEvent !== 'undefined') {
         scene.view.addEventListener('touchstart', (e) => eventScene.down(e));
         scene.view.addEventListener('touchend', (e) => eventScene.up(e));
         scene.view.addEventListener('touchmove', (e) => eventScene.move(e, true));
